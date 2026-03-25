@@ -6,7 +6,7 @@
   "scripts": {
     "dev:client": "vite dev --port 5000",
     "dev": "dotenv -e .env -- cross-env NODE_ENV=development tsx server/index.ts",
-    "build": "tsx script/build.ts",
+    "build": "npx tsx script/build.ts",
     "start": "NODE_ENV=production node dist/index.cjs",
     "build:local": "dotenv -e .env -- cross-env tsx script/build.ts",
     "start:local": "dotenv -e .env -- cross-env NODE_ENV=production node dist/index.cjs",
