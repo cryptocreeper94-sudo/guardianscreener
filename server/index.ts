@@ -1,6 +1,7 @@
 import express, { type Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer } from "ws";
+import path from "path";
 import { setupGuardianScreenerWS as setupGuardianWS } from "./guardian-screener-ws";
 import { registerRoutes } from "./routes";
 
@@ -21,6 +22,15 @@ export function setupServer(): Server {
   
   // Register API routes
   registerRoutes(app);
+
+  // Serve Vite-built static client files
+  const distPath = path.resolve(__dirname, "public");
+  app.use(express.static(distPath));
+
+  // SPA catch-all: serve index.html for any non-API route
+  app.get("*", (_req, res) => {
+    res.sendFile(path.resolve(distPath, "index.html"));
+  });
 
   return httpServer;
 }
