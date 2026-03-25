@@ -765,4 +765,4 @@ class GuardianScreenerService {
   }
 }
 
-export const GuardianScreenerService = new GuardianScreenerService();
+export const guardianScreenerService = new GuardianScreenerService();
