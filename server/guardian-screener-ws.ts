@@ -59,7 +59,7 @@ export function setupGuardianScreenerWS(server: Server) {
 
     ws.send(JSON.stringify({
       type: 'connected',
-      message: 'Guardian Scanner live feed connected',
+      message: 'Guardian Screener live feed connected',
       timestamp: Date.now()
     }));
   });

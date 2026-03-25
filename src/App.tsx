@@ -20,6 +20,7 @@ function App() {
         <Route path="/" component={GuardianScreener} />
         <Route path="/strike-agent" component={StrikeAgent} />
         <Route path="/token/:chain/:address" component={TokenDetail} />
+        <Route path="/guardian-screener/:chain/:address" component={TokenDetail} />
         <Route>404 Not Found</Route>
       </Switch>
     </QueryClientProvider>

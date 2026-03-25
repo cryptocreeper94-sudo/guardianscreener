@@ -276,7 +276,7 @@ export function QuickTradePanel({ tokenAddress, tokenSymbol, tokenName, recommen
           <div className="flex items-center gap-3">
             <div className="flex-1">
               <div className="flex items-center justify-between text-[10px] mb-1">
-                <span className="text-white/50">Pulse AI Score</span>
+                <span className="text-white/50">Guardian AI Score</span>
                 <span className="text-white font-bold">{aiScore}/100</span>
               </div>
               <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">

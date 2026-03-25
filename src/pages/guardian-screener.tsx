@@ -217,7 +217,7 @@ function AIRecommendationBadge({ recommendation, score }: { recommendation: 'sni
         </TooltipTrigger>
         <TooltipContent className="bg-slate-900 border-white/10">
           <div className="text-xs">
-            <div className="font-medium mb-1">Pulse AI Score</div>
+            <div className="font-medium mb-1">Guardian AI Score</div>
             <div className="text-white/60">Score: {score}/100</div>
             <div className="text-white/40 text-[10px] mt-0.5">Safety 30% + Technical 30% + Momentum 25% + ML 15%</div>
           </div>
@@ -1121,7 +1121,7 @@ export default function GuardianScreener() {
             className="flex flex-col items-center gap-6"
           >
             <div className="relative">
-              <img src="/icons/guardian-screener-icon-512.png" alt="Guardian Scanner" className="w-28 h-28 rounded-3xl shadow-2xl shadow-cyan-500/30" />
+              <img src="/icons/guardian-screener-icon-512.png" alt="Guardian Screener" className="w-28 h-28 rounded-3xl shadow-2xl shadow-cyan-500/30" />
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
@@ -1129,8 +1129,8 @@ export default function GuardianScreener() {
               />
             </div>
             <div className="text-center">
-              <h1 className="text-2xl font-bold text-white tracking-wider">GUARDIAN SCANNER</h1>
-              <p className="text-xs text-cyan-400/70 mt-1 tracking-widest uppercase">Powered by Pulse AI</p>
+              <h1 className="text-2xl font-bold text-white tracking-wider">GUARDIAN SCREENER</h1>
+              <p className="text-xs text-cyan-400/70 mt-1 tracking-widest uppercase">by DarkWave Studios</p>
             </div>
             <motion.div
               initial={{ width: 0 }}
@@ -1573,7 +1573,7 @@ export default function GuardianScreener() {
                 <Shield className="w-4 h-4 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-white">Install Guardian Scanner</p>
+                <p className="text-xs font-medium text-white">Install Guardian Screener</p>
                 <p className="text-[10px] text-white/50">Get the full app experience</p>
               </div>
               <button
