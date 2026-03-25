@@ -1,7 +1,7 @@
 import express, { type Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer } from "ws";
-import { setupGuardianWS } from "./guardian-scanner-ws";
+import { setupGuardianScreenerWS as setupGuardianWS } from "./guardian-screener-ws";
 import { registerRoutes } from "./routes";
 
 export function setupServer(): Server {
@@ -14,7 +14,7 @@ export function setupServer(): Server {
   // Setup WebSocket server for real-time prices
   const wss = new WebSocketServer({ 
     server: httpServer, 
-    path: '/ws/guardian-scanner' 
+    path: '/ws/guardian-screener' 
   });
   
   setupGuardianWS(wss);

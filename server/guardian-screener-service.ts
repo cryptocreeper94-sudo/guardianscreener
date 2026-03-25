@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { tokenDataCache, CACHE_TTL } from './guardian-scanner-cache';
-import { safetyEngineService, TokenSafetyReport } from './pulse/safetyEngineService';
-import { evmSafetyEngine, EvmTokenSafetyReport, EvmChainId } from './pulse/evmSafetyEngine';
+import { tokenDataCache, CACHE_TTL } from './guardian-screener-cache';
+import { safetyEngineService, TokenSafetyReport } from './services/pulse/safetyEngineService';
+import { evmSafetyEngine, EvmTokenSafetyReport, EvmChainId } from './services/pulse/evmSafetyEngine';
 
 const EVM_CHAINS: EvmChainId[] = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'base', 'avalanche', 'fantom', 'optimism', 'cronos'];
 
@@ -170,7 +170,7 @@ async function runSafetyCheck(chain: string, tokenAddress: string): Promise<Safe
     tokenDataCache.set(cacheKey, safetyData, 5 * 60 * 1000);
     return safetyData;
   } catch (error) {
-    console.warn(`[GuardianScanner] Safety check failed for ${chain}:${tokenAddress}:`, error);
+    console.warn(`[GuardianScreener] Safety check failed for ${chain}:${tokenAddress}:`, error);
     return null;
   }
 }
@@ -461,13 +461,13 @@ function transformPairToToken(pair: DexScreenerPair): GuardianToken {
   };
 }
 
-class GuardianScannerService {
+class GuardianScreenerService {
   
   async getTrendingTokens(chain?: string): Promise<GuardianToken[]> {
     const cacheKey = `trending:${chain || 'all'}`;
     const cached = tokenDataCache.get<GuardianToken[]>(cacheKey);
     if (cached) {
-      console.log(`[GuardianScanner] Cache hit for ${cacheKey}`);
+      console.log(`[GuardianScreener] Cache hit for ${cacheKey}`);
       return cached;
     }
     
@@ -526,11 +526,11 @@ class GuardianScannerService {
             });
             allTokens.push(...tokens);
           } catch (err) {
-            console.warn(`[GuardianScanner] Failed to fetch pairs for ${chainId}:`, err);
+            console.warn(`[GuardianScreener] Failed to fetch pairs for ${chainId}:`, err);
           }
         }
       } catch (err) {
-        console.warn('[GuardianScanner] Boost endpoint failed, falling back to token-profiles:', err);
+        console.warn('[GuardianScreener] Boost endpoint failed, falling back to token-profiles:', err);
       }
       
       // Step 3: If we got fewer than 20 tokens, supplement with token-profiles
@@ -583,11 +583,11 @@ class GuardianScannerService {
               });
               allTokens.push(...tokens);
             } catch (err) {
-              console.warn(`[GuardianScanner] Profile pair lookup failed for ${chainId}:`, err);
+              console.warn(`[GuardianScreener] Profile pair lookup failed for ${chainId}:`, err);
             }
           }
         } catch (err) {
-          console.warn('[GuardianScanner] Token profiles fallback failed:', err);
+          console.warn('[GuardianScreener] Token profiles fallback failed:', err);
         }
       }
       
@@ -605,10 +605,10 @@ class GuardianScannerService {
         .sort((a, b) => b.volume24h - a.volume24h);
       tokenDataCache.set(cacheKey, sorted, CACHE_TTL.TOKEN_LIST);
       
-      console.log(`[GuardianScanner] Fetched ${sorted.length} trending tokens for ${chain || 'all'}`);
+      console.log(`[GuardianScreener] Fetched ${sorted.length} trending tokens for ${chain || 'all'}`);
       return sorted;
     } catch (error) {
-      console.error('[GuardianScanner] getTrendingTokens error:', error);
+      console.error('[GuardianScreener] getTrendingTokens error:', error);
       return [];
     }
   }
@@ -635,7 +635,7 @@ class GuardianScannerService {
       tokenDataCache.set(cacheKey, tokens, CACHE_TTL.TOKEN_LIST);
       return tokens;
     } catch (error) {
-      console.error('[GuardianScanner] getTopGainers error:', error);
+      console.error('[GuardianScreener] getTopGainers error:', error);
       return [];
     }
   }
@@ -661,7 +661,7 @@ class GuardianScannerService {
       tokenDataCache.set(cacheKey, tokens, CACHE_TTL.TOKEN_LIST);
       return tokens;
     } catch (error) {
-      console.error('[GuardianScanner] getNewPairs error:', error);
+      console.error('[GuardianScreener] getNewPairs error:', error);
       return [];
     }
   }
@@ -686,7 +686,7 @@ class GuardianScannerService {
       tokenDataCache.set(cacheKey, tokens, 60000); // 1 min cache for searches
       return tokens;
     } catch (error) {
-      console.error('[GuardianScanner] searchTokens error:', error);
+      console.error('[GuardianScreener] searchTokens error:', error);
       return [];
     }
   }
@@ -721,7 +721,7 @@ class GuardianScannerService {
       tokenDataCache.set(cacheKey, token, CACHE_TTL.TOKEN_DETAIL);
       return token;
     } catch (error) {
-      console.error('[GuardianScanner] getTokenByAddress error:', error);
+      console.error('[GuardianScreener] getTokenByAddress error:', error);
       return null;
     }
   }
@@ -755,7 +755,7 @@ class GuardianScannerService {
       tokenDataCache.set(cacheKey, token, CACHE_TTL.TOKEN_DETAIL);
       return token;
     } catch (error) {
-      console.error('[GuardianScanner] getPairByAddress error:', error);
+      console.error('[GuardianScreener] getPairByAddress error:', error);
       return null;
     }
   }
@@ -765,4 +765,4 @@ class GuardianScannerService {
   }
 }
 
-export const guardianScannerService = new GuardianScannerService();
+export const GuardianScreenerService = new GuardianScreenerService();

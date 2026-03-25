@@ -23,7 +23,7 @@ export default function TokenDetail() {
   const { data: token, isLoading } = useQuery({
     queryKey: ["token", chain, address],
     queryFn: async () => {
-      const res = await fetch(`/api/guardian-scanner/token/${chain}/${address}`);
+      const res = await fetch(`/api/guardian-screener/token/${chain}/${address}`);
       if (!res.ok) throw new Error("Token not found");
       return res.json();
     },

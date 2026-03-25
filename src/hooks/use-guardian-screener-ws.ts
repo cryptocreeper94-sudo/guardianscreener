@@ -28,7 +28,7 @@ export function useGuardianWS(options: UseGuardianWSOptions = {}) {
     if (!enabled || wsRef.current?.readyState === WebSocket.OPEN) return;
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.host}/ws/guardian-scanner`;
+    const wsUrl = `${protocol}//${window.location.host}/ws/guardian-screener`;
     
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;

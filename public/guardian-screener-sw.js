@@ -1,7 +1,8 @@
 const CACHE_NAME = 'guardian-screener-v1';
 const STATIC_ASSETS = [
-  '/guardian-shield',
+  '/guardian-screener',
   '/icons/guardian-screener-icon-512.png',
+  '/icons/guardian-screener-splash.png',
 ];
 
 self.addEventListener('install', (event) => {

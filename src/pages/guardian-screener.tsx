@@ -484,7 +484,7 @@ function ExpandedTokenDetails({ token }: { token: Token }) {
                 <span className="text-white">${formatNumber(token.liquidity)}</span>
               </div>
               <div className="flex items-center gap-2 mt-2">
-                <Link href={`/guardian-scanner/${token.chain}/${token.contractAddress}`}>
+                <Link href={`/guardian-screener/${token.chain}/${token.contractAddress}`}>
                   <button className="flex items-center gap-1 px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded text-[10px] hover:bg-cyan-500/30">
                     <ExternalLink className="w-3 h-3" />
                     Full Analysis
@@ -539,7 +539,7 @@ function TokenRow({ token, isExpanded, onToggleExpand, onToggleWatchlist, onTrad
   const handleRowClick = () => {
     const isMobile = window.innerWidth < 1024;
     if (isMobile) {
-      navigate(`/guardian-scanner/${token.chain}/${token.contractAddress}`);
+      navigate(`/guardian-screener/${token.chain}/${token.contractAddress}`);
     } else {
       onToggleExpand();
     }
@@ -562,7 +562,7 @@ function TokenRow({ token, isExpanded, onToggleExpand, onToggleWatchlist, onTrad
         
         {/* Token Info */}
         <td className="py-2 pr-3 min-w-[180px]">
-          <Link href={`/guardian-scanner/${token.chain}/${token.contractAddress}`} onClick={(e) => e.stopPropagation()}>
+          <Link href={`/guardian-screener/${token.chain}/${token.contractAddress}`} onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-2">
               <div className="relative flex-shrink-0">
                 <img src={token.logo} alt="" className="w-7 h-7 rounded-full bg-white/10" onError={(e) => { (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/shapes/svg?seed=${token.symbol}`; }} />
@@ -736,7 +736,7 @@ function LeftSidebar({
       
       {/* Nav Items */}
       <nav className="flex-1 py-2 overflow-y-auto">
-        <Link href="/guardian-scanner">
+        <Link href="/guardian-screener">
           <div className="flex items-center gap-2 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white cursor-pointer">
             <Star className="w-4 h-4" />
             <span className="text-xs font-medium">Watchlist</span>
@@ -752,26 +752,26 @@ function LeftSidebar({
             <span className="ml-auto text-[9px] bg-cyan-500/20 px-1.5 rounded text-cyan-400">AI</span>
           </div>
         </Link>
-        <Link href="/guardian-scanner">
+        <Link href="/guardian-screener">
           <div className="flex items-center gap-2 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white cursor-pointer">
             <Bell className="w-4 h-4" />
             <span className="text-xs font-medium">Alerts</span>
           </div>
         </Link>
-        <Link href="/guardian-scanner">
+        <Link href="/guardian-screener">
           <div className="flex items-center gap-2 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white cursor-pointer">
             <LayoutGrid className="w-4 h-4" />
             <span className="text-xs font-medium">Multicharts</span>
           </div>
         </Link>
         <div className="h-px bg-white/5 my-2" />
-        <Link href="/guardian-scanner?filter=new">
+        <Link href="/guardian-screener?filter=new">
           <div className="flex items-center gap-2 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white cursor-pointer">
             <Sparkles className="w-4 h-4" />
             <span className="text-xs font-medium">New Pairs</span>
           </div>
         </Link>
-        <Link href="/guardian-scanner?filter=gainers">
+        <Link href="/guardian-screener?filter=gainers">
           <div className="flex items-center gap-2 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white cursor-pointer">
             <TrendingUp className="w-4 h-4" />
             <span className="text-xs font-medium">Gainers & Losers</span>
@@ -828,7 +828,7 @@ function LeftSidebar({
   );
 }
 
-export default function GuardianScanner() {
+export default function GuardianScreener() {
   const [selectedChain, setSelectedChain] = useState("solana");
   const [activeTimeFilter, setActiveTimeFilter] = useState("24h");
   const [rankBy, setRankBy] = useState("trending");
@@ -853,7 +853,7 @@ export default function GuardianScanner() {
     if (themeColor) themeColor.setAttribute('content', '#06b6d4');
 
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/guardian-scanner-sw.js', { scope: '/guardian-scanner' }).catch(() => {});
+      navigator.serviceWorker.register('/guardian-screener-sw.js', { scope: '/guardian-screener' }).catch(() => {});
     }
 
     const timer = setTimeout(() => setShowSplash(false), 1800);
@@ -925,12 +925,12 @@ export default function GuardianScanner() {
       }
       
       // Try to fetch token by contract address
-      const response = await fetch(`/api/guardian-scanner/contract/${detectedChain}/${contractSearch}`);
+      const response = await fetch(`/api/guardian-screener/contract/${detectedChain}/${contractSearch}`);
       if (response.ok) {
         const data = await response.json();
         if (data.token) {
           // Navigate to token detail
-          window.location.href = `/guardian-scanner/${detectedChain}/${data.token.symbol}`;
+          window.location.href = `/guardian-screener/${detectedChain}/${data.token.symbol}`;
           return;
         }
       }
@@ -942,7 +942,7 @@ export default function GuardianScanner() {
       );
       
       if (found) {
-        window.location.href = `/guardian-scanner/${found.chain}/${found.symbol}`;
+        window.location.href = `/guardian-screener/${found.chain}/${found.symbol}`;
       } else {
         setContractSearchError('Token not found. Try a different address or chain.');
       }
@@ -972,7 +972,7 @@ export default function GuardianScanner() {
       setIsLoading(true);
       try {
         const chainParam = selectedChain === 'darkwave' ? '' : selectedChain;
-        const url = `/api/guardian-scanner/tokens?chain=${chainParam}&filter=trending`;
+        const url = `/api/guardian-screener/tokens?chain=${chainParam}&filter=trending`;
         const response = await fetch(url);
         const data = await response.json();
         
@@ -1121,7 +1121,7 @@ export default function GuardianScanner() {
             className="flex flex-col items-center gap-6"
           >
             <div className="relative">
-              <img src="/icons/guardian-scanner-icon-512.png" alt="Guardian Scanner" className="w-28 h-28 rounded-3xl shadow-2xl shadow-cyan-500/30" />
+              <img src="/icons/guardian-screener-icon-512.png" alt="Guardian Scanner" className="w-28 h-28 rounded-3xl shadow-2xl shadow-cyan-500/30" />
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
@@ -1364,7 +1364,7 @@ export default function GuardianScanner() {
             onClick={() => {
               setIsLoading(true);
               const chainParam = selectedChain === 'darkwave' ? '' : selectedChain;
-              fetch(`/api/guardian-scanner/tokens?chain=${chainParam}&filter=trending`)
+              fetch(`/api/guardian-screener/tokens?chain=${chainParam}&filter=trending`)
                 .then(r => r.json())
                 .then(data => {
                   if (data.tokens && data.tokens.length > 0) {

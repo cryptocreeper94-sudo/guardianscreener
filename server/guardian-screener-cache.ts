@@ -3,7 +3,7 @@ interface CacheEntry<T> {
   expiresAt: number;
 }
 
-class GuardianScannerCache {
+class GuardianScreenerCache {
   private cache: Map<string, CacheEntry<any>> = new Map();
   private cleanupInterval: NodeJS.Timeout | null = null;
   
@@ -80,9 +80,9 @@ class GuardianScannerCache {
   }
 }
 
-export const tokenDataCache = new GuardianScannerCache();
-export const commentCache = new GuardianScannerCache();
-export const alertCache = new GuardianScannerCache();
+export const tokenDataCache = new GuardianScreenerCache();
+export const commentCache = new GuardianScreenerCache();
+export const alertCache = new GuardianScreenerCache();
 
 export const CACHE_TTL = {
   TOKEN_LIST: 30 * 1000,

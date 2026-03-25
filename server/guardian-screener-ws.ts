@@ -20,13 +20,13 @@ interface Subscription {
 const subscriptions = new Map<WebSocket, Subscription>();
 let wss: WebSocketServer | null = null;
 
-export function setupGuardianScannerWS(server: Server) {
+export function setupGuardianScreenerWS(server: Server) {
   wss = new WebSocketServer({ 
     server, 
-    path: '/ws/guardian-scanner'
+    path: '/ws/guardian-screener'
   });
 
-  console.log('[Guardian WS] WebSocket server initialized on /ws/guardian-scanner');
+  console.log('[Guardian WS] WebSocket server initialized on /ws/guardian-screener');
 
   wss.on('connection', (ws) => {
     console.log('[Guardian WS] Client connected');
