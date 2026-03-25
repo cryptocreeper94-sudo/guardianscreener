@@ -53,7 +53,7 @@ import {
   Compass,
   ListFilter
 } from "lucide-react";
-import { useGuardianWS } from "@/hooks/use-guardian-ws";
+import { useGuardianWS } from "@/hooks/use-guardian-screener-ws";
 import { QuickTradePanel } from "@/components/quick-trade-panel";
 import { PriceSparkline } from "@/components/sniper/price-sparkline";
 
