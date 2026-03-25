@@ -1,0 +1,36 @@
+{
+  "id": "/guardian-shield",
+  "name": "Guardian Screener",
+  "short_name": "Screener",
+  "description": "Advanced DEX screener with AI-driven threat detection, predictive market intelligence, and real-time security monitoring.",
+  "start_url": "/guardian-shield",
+  "display": "standalone",
+  "background_color": "#0a0a14",
+  "theme_color": "#06b6d4",
+  "orientation": "any",
+  "scope": "/guardian-shield",
+  "lang": "en",
+  "categories": ["finance", "utilities", "security"],
+  "icons": [
+    {
+      "src": "/icons/guardian-screener-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/guardian-screener-icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "DEX Screener",
+      "short_name": "Screener",
+      "url": "/guardian-shield",
+      "description": "Launch DEX Screener"
+    }
+  ]
+}

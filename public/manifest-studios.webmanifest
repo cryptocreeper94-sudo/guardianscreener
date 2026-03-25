@@ -1,0 +1,39 @@
+{
+  "id": "/trust-studio",
+  "name": "Trust Studio",
+  "short_name": "Trust Studio",
+  "description": "The integrated development environment for building on the Trust Layer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#06b6d4",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/studios-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/studios-icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "About Us",
+      "short_name": "About",
+      "url": "/about"
+    },
+    {
+      "name": "Our Products",
+      "short_name": "Products",
+      "url": "/products"
+    }
+  ]
+}

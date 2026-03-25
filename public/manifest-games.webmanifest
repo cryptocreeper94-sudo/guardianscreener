@@ -1,0 +1,54 @@
+{
+  "id": "/darkwave-games",
+  "name": "DarkWave Games",
+  "short_name": "DW Games",
+  "description": "Premium arcade games, provably fair sweepstakes, and classic card games. Play for fun or play to win!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#ec4899",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["games", "entertainment", "casino"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icons/games-icon-unique-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/games-icon-unique-512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Arcade",
+      "short_name": "Arcade",
+      "description": "Browse all games",
+      "url": "/arcade"
+    },
+    {
+      "name": "Orbit Crash",
+      "short_name": "Crash",
+      "description": "Watch the multiplier climb!",
+      "url": "/crash"
+    },
+    {
+      "name": "Dragon's Fortune Slots",
+      "short_name": "Slots",
+      "description": "Spin to win big!",
+      "url": "/slots"
+    },
+    {
+      "name": "Coin Store",
+      "short_name": "Store",
+      "description": "Get Gold Coins & Sweeps Coins",
+      "url": "/coin-store"
+    }
+  ]
+}

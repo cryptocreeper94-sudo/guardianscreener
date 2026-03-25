@@ -1,0 +1,39 @@
+{
+  "id": "/community-chronochat",
+  "name": "ChronoChat",
+  "short_name": "ChronoChat",
+  "description": "Connect across timelines. Chat beyond eras. The community hub for DarkWave ecosystem.",
+  "start_url": "/community?app=chronochat",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#06b6d4",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["social", "communication", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/chronochat-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/chronochat-icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Communities",
+      "short_name": "Communities",
+      "url": "/community"
+    },
+    {
+      "name": "Messages",
+      "short_name": "Messages",
+      "url": "/messages"
+    }
+  ]
+}

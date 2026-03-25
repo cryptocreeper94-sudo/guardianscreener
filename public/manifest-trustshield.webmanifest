@@ -1,0 +1,90 @@
+{
+  "id": "/trustshield",
+  "name": "TrustShield",
+  "short_name": "TrustShield",
+  "description": "The world's first AI agent certification system. Verify, certify, and protect autonomous AI agents.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a14",
+  "theme_color": "#06b6d4",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["security", "business", "utilities", "finance"],
+  "icons": [
+    {
+      "src": "/icons/trustshield-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/trustshield-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/trustshield-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/trustshield-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/trustshield-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/trustshield-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/trustshield-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/trustshield-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Submit Agent",
+      "short_name": "Submit",
+      "url": "/guardian-ai",
+      "description": "Submit an AI agent for certification"
+    },
+    {
+      "name": "Registry",
+      "short_name": "Registry",
+      "url": "/guardian-ai-registry",
+      "description": "View certified AI agents"
+    },
+    {
+      "name": "Certification",
+      "short_name": "Certify",
+      "url": "/guardian-certification",
+      "description": "Smart contract security audits"
+    },
+    {
+      "name": "Whitepaper",
+      "short_name": "Whitepaper",
+      "url": "/guardian-whitepaper",
+      "description": "Security methodology documentation"
+    }
+  ]
+}

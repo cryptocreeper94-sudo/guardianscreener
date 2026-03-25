@@ -1,0 +1,42 @@
+{
+  "id": "/academy",
+  "name": "DarkWave Academy",
+  "short_name": "Academy",
+  "description": "The premier education platform for cryptocurrency, DeFi, multi-chain ecosystems, security, and Trust Layer operations. Earn blockchain-verified credentials.",
+  "start_url": "/academy",
+  "display": "standalone",
+  "background_color": "#0a0a14",
+  "theme_color": "#3b82f6",
+  "orientation": "any",
+  "scope": "/academy",
+  "lang": "en",
+  "categories": ["education", "finance"],
+  "icons": [
+    {
+      "src": "/ecosystem/darkwave-academy.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/ecosystem/darkwave-academy.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Course Catalog",
+      "short_name": "Courses",
+      "url": "/academy#courses",
+      "description": "Browse all course tracks"
+    },
+    {
+      "name": "Pricing",
+      "short_name": "Plans",
+      "url": "/academy#pricing",
+      "description": "View subscription plans"
+    }
+  ]
+}

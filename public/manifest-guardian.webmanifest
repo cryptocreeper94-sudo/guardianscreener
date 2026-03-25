@@ -1,0 +1,51 @@
+{
+  "id": "/guardian-scanner",
+  "name": "Guardian Scanner",
+  "short_name": "Guardian",
+  "description": "AI-powered token analysis scanner with Pulse predictive scoring. Real-time safety checks, multi-chain monitoring, and Strike Agent recommendations.",
+  "start_url": "/guardian-scanner",
+  "display": "standalone",
+  "background_color": "#0a0a14",
+  "theme_color": "#06b6d4",
+  "orientation": "any",
+  "scope": "/guardian-scanner",
+  "lang": "en",
+  "categories": ["finance", "utilities", "security"],
+  "icons": [
+    {
+      "src": "/icons/guardian-scanner-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/guardian-scanner-icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/guardian-scanner-splash.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Guardian Scanner Launch"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Trending Tokens",
+      "short_name": "Trending",
+      "url": "/guardian-scanner",
+      "description": "View trending tokens across all chains"
+    },
+    {
+      "name": "Top Gainers",
+      "short_name": "Gainers",
+      "url": "/guardian-scanner?sort=gainers",
+      "description": "Top gaining tokens"
+    }
+  ]
+}
