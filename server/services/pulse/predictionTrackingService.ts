@@ -1,7 +1,6 @@
 import { createHash, randomBytes } from 'crypto';
-import { db } from '../../db';
-import { predictionEvents, predictionOutcomes, predictionAccuracyStats } from '@shared/schema';
-import { eq, desc, and, sql, isNull } from 'drizzle-orm';
+import fs from 'fs/promises';
+import path from 'path';
 
 // Stub for blockchain stamping (will be enhanced when full chain integration is ready)
 const auditTrailService = {
@@ -75,32 +74,45 @@ interface OutcomeInput {
 
 class PredictionTrackingService {
   private isInitialized = false;
+  private dataPath = path.resolve(process.cwd(), 'server', 'data', 'predictions.json');
+  
+  private state = {
+    events: [] as any[],
+    outcomes: [] as any[],
+    stats: [] as any[]
+  };
 
   async initialize(): Promise<void> {
+    try {
+      await fs.mkdir(path.dirname(this.dataPath), { recursive: true });
+      const data = await fs.readFile(this.dataPath, 'utf-8');
+      this.state = JSON.parse(data);
+    } catch (e) {
+      await this.saveState();
+    }
     this.isInitialized = true;
-    console.log('✅ [PredictionTracking] Service initialized');
+    console.log('✅ [PredictionTracking] Service initialized with local JSON persistence');
   }
 
-  /**
-   * Generate unique prediction ID
-   */
+  private async saveState() {
+    try {
+      await fs.writeFile(this.dataPath, JSON.stringify(this.state, null, 2));
+    } catch (e) {
+      console.error('Failed to save predictions state', e);
+    }
+  }
+
   private generatePredictionId(): string {
     const timestamp = Date.now().toString(36);
     const random = randomBytes(8).toString('hex');
     return `pred_${timestamp}_${random}`;
   }
 
-  /**
-   * Create SHA-256 hash of prediction payload for blockchain stamping
-   */
   private hashPayload(payload: object): string {
     const canonical = JSON.stringify(payload, Object.keys(payload).sort());
     return createHash('sha256').update(canonical).digest('hex');
   }
 
-  /**
-   * Determine confidence level based on signal strength
-   */
   private determineConfidence(bullish: number, bearish: number, signal: string): 'HIGH' | 'MEDIUM' | 'LOW' {
     const total = bullish + bearish;
     const dominant = Math.max(bullish, bearish);
@@ -112,9 +124,6 @@ class PredictionTrackingService {
     return 'LOW';
   }
 
-  /**
-   * Log a new prediction with full indicator snapshot
-   */
   async logPrediction(input: PredictionInput): Promise<{
     id: string;
     payloadHash: string;
@@ -122,7 +131,6 @@ class PredictionTrackingService {
   }> {
     const predictionId = this.generatePredictionId();
     
-    // Create payload for hashing (includes all relevant data)
     const payload = {
       id: predictionId,
       ticker: input.ticker,
@@ -144,8 +152,7 @@ class PredictionTrackingService {
     );
 
     try {
-      // Insert prediction record
-      await db.insert(predictionEvents).values({
+      const newEvent = {
         id: predictionId,
         userId: input.userId || null,
         ticker: input.ticker.toUpperCase(),
@@ -159,11 +166,14 @@ class PredictionTrackingService {
         signalsList: JSON.stringify(input.signalsList),
         payloadHash,
         status: 'pending',
-      });
+        createdAt: new Date()
+      };
+      
+      this.state.events.push(newEvent);
+      await this.saveState();
 
       console.log(`📊 [PredictionTracking] Logged prediction ${predictionId}: ${input.signal} ${input.ticker} @ $${input.priceAtPrediction}`);
 
-      // Schedule blockchain stamp (async, don't wait)
       this.stampToBlockchain(predictionId, payload).catch(err => {
         console.error('⚠️ [PredictionTracking] Blockchain stamp failed:', err);
       });
@@ -175,9 +185,6 @@ class PredictionTrackingService {
     }
   }
 
-  /**
-   * Stamp prediction to Solana blockchain via audit trail + Trust Layer L1
-   */
   private async stampToBlockchain(predictionId: string, payload: object): Promise<void> {
     try {
       const result = await auditTrailService.logEvent({
@@ -192,19 +199,18 @@ class PredictionTrackingService {
       });
 
       if (result?.onchainSignature) {
-        await db.update(predictionEvents)
-          .set({
-            auditEventId: result.id,
-            onchainSignature: result.onchainSignature,
-            status: 'stamped',
-            stampedAt: new Date(),
-          })
-          .where(eq(predictionEvents.id, predictionId));
+        const event = this.state.events.find(e => e.id === predictionId);
+        if (event) {
+          event.auditEventId = result.id;
+          event.onchainSignature = result.onchainSignature;
+          event.status = 'stamped';
+          event.stampedAt = new Date();
+          await this.saveState();
+        }
 
         console.log(`⛓️ [PredictionTracking] Prediction ${predictionId} stamped to Solana: ${result.onchainSignature.substring(0, 20)}...`);
       }
 
-      // Also submit to Trust Layer L1 for dual verification
       this.stampToDarkWaveChain(predictionId, payload as any).catch(err => {
         console.warn('⚠️ [PredictionTracking] Trust Layer stamp failed (non-critical):', err.message);
       });
@@ -213,9 +219,6 @@ class PredictionTrackingService {
     }
   }
 
-  /**
-   * Submit prediction hash to Trust Layer (DSC) L1 for additional verification
-   */
   private async stampToDarkWaveChain(predictionId: string, payload: {
     id: string;
     ticker: string;
@@ -242,16 +245,9 @@ class PredictionTrackingService {
     }
   }
 
-  /**
-   * Record outcome for a prediction at a specific time horizon
-   */
   async recordOutcome(input: OutcomeInput): Promise<boolean> {
     try {
-      // Get the original prediction
-      const [prediction] = await db.select()
-        .from(predictionEvents)
-        .where(eq(predictionEvents.id, input.predictionId))
-        .limit(1);
+      const prediction = this.state.events.find(e => e.id === input.predictionId);
 
       if (!prediction) {
         console.error(`❌ [PredictionTracking] Prediction not found: ${input.predictionId}`);
@@ -262,18 +258,16 @@ class PredictionTrackingService {
       const priceChange = input.priceAtCheck - originalPrice;
       const priceChangePercent = (priceChange / originalPrice) * 100;
 
-      // Determine if prediction was correct based on signal direction
       const isCorrect = this.evaluateOutcome(
         prediction.signal,
         priceChangePercent
       );
 
-      // Classify outcome based on signal type and price movement
       const outcome = this.classifyOutcome(prediction.signal, priceChangePercent);
 
       const outcomeId = `out_${Date.now().toString(36)}_${randomBytes(4).toString('hex')}`;
 
-      await db.insert(predictionOutcomes).values({
+      this.state.outcomes.push({
         id: outcomeId,
         predictionId: input.predictionId,
         horizon: input.horizon,
@@ -285,11 +279,13 @@ class PredictionTrackingService {
         volatilityDuring: input.volatilityDuring?.toFixed(4) || null,
         maxDrawdown: input.maxDrawdown?.toFixed(4) || null,
         maxGain: input.maxGain?.toFixed(4) || null,
+        createdAt: new Date()
       });
+      
+      await this.saveState();
 
       console.log(`📈 [PredictionTracking] Outcome recorded for ${input.predictionId} @ ${input.horizon}: ${outcome} (${priceChangePercent.toFixed(2)}%)`);
 
-      // Extract features for ML training
       try {
         await predictionLearningService.extractFeatures(
           input.predictionId,
@@ -301,18 +297,13 @@ class PredictionTrackingService {
         console.error('⚠️ [PredictionTracking] Feature extraction failed:', featureError);
       }
 
-      // Update accuracy stats
       await this.updateAccuracyStats(prediction.ticker, prediction.signal, input.horizon, isCorrect, priceChangePercent);
 
-      // Mark prediction as evaluated if all horizons are done
-      const allOutcomes = await db.select()
-        .from(predictionOutcomes)
-        .where(eq(predictionOutcomes.predictionId, input.predictionId));
+      const allOutcomes = this.state.outcomes.filter(o => o.predictionId === input.predictionId);
 
       if (allOutcomes.length >= 4) {
-        await db.update(predictionEvents)
-          .set({ status: 'evaluated' })
-          .where(eq(predictionEvents.id, input.predictionId));
+        prediction.status = 'evaluated';
+        await this.saveState();
       }
 
       return true;
@@ -322,12 +313,6 @@ class PredictionTrackingService {
     }
   }
 
-  /**
-   * Evaluate if prediction was correct based on signal and price movement
-   * BUY/STRONG_BUY: Correct if price went UP (positive return)
-   * SELL/STRONG_SELL: Correct if price went DOWN (negative return)
-   * HOLD: Correct if price stayed stable (within tolerance band)
-   */
   private evaluateOutcome(signal: string, priceChangePercent: number): boolean {
     const winThreshold = 0.5; // 0.5% minimum move to count as win
     const holdTolerance = 2.0; // HOLD is correct if price moves less than 2%
@@ -335,43 +320,32 @@ class PredictionTrackingService {
     switch (signal) {
       case 'STRONG_BUY':
       case 'BUY':
-        // BUY is correct when price goes UP
         return priceChangePercent > winThreshold;
       case 'STRONG_SELL':
       case 'SELL':
-        // SELL is correct when price goes DOWN
         return priceChangePercent < -winThreshold;
       case 'HOLD':
-        // HOLD is correct when price stays relatively stable
         return Math.abs(priceChangePercent) < holdTolerance;
       default:
         return false;
     }
   }
 
-  /**
-   * Classify outcome as WIN/LOSS/NEUTRAL based on signal type
-   */
   private classifyOutcome(signal: string, priceChangePercent: number): 'WIN' | 'LOSS' | 'NEUTRAL' {
     const isCorrect = this.evaluateOutcome(signal, priceChangePercent);
     const threshold = 0.5;
 
     if (signal === 'HOLD') {
-      // For HOLD, success is when price stays stable
       return isCorrect ? 'WIN' : 'LOSS';
     }
 
-    // For BUY/SELL signals
     if (Math.abs(priceChangePercent) < threshold) {
-      return 'NEUTRAL'; // Price barely moved
+      return 'NEUTRAL';
     }
 
     return isCorrect ? 'WIN' : 'LOSS';
   }
 
-  /**
-   * Update accuracy stats for a ticker/signal/horizon combination
-   */
   private async updateAccuracyStats(
     ticker: string,
     signal: string,
@@ -379,25 +353,18 @@ class PredictionTrackingService {
     isCorrect: boolean,
     returnPercent: number
   ): Promise<void> {
-    // Get or create stats record
     const statsId = `stats_${ticker}_${signal}_${horizon}`.toLowerCase();
     
-    const [existing] = await db.select()
-      .from(predictionAccuracyStats)
-      .where(eq(predictionAccuracyStats.id, statsId))
-      .limit(1);
+    let existing = this.state.stats.find(s => s.id === statsId);
 
     if (existing) {
-      // Update existing stats
       const newTotal = existing.totalPredictions + 1;
       const newCorrect = existing.correctPredictions + (isCorrect ? 1 : 0);
       const winRate = ((newCorrect / newTotal) * 100).toFixed(2);
 
-      // Calculate new average return
       const prevAvg = parseFloat(existing.avgReturn || '0');
       const newAvg = ((prevAvg * (newTotal - 1)) + returnPercent) / newTotal;
 
-      // Update streak
       let newStreak = existing.currentStreak || 0;
       if (isCorrect) {
         newStreak = newStreak >= 0 ? newStreak + 1 : 1;
@@ -408,22 +375,19 @@ class PredictionTrackingService {
       const longestWin = Math.max(existing.longestWinStreak || 0, isCorrect ? newStreak : 0);
       const longestLoss = Math.min(existing.longestLossStreak || 0, !isCorrect ? newStreak : 0);
 
-      await db.update(predictionAccuracyStats)
-        .set({
-          totalPredictions: newTotal,
-          correctPredictions: newCorrect,
-          winRate,
-          avgReturn: newAvg.toFixed(4),
-          currentStreak: newStreak,
-          longestWinStreak: longestWin,
-          longestLossStreak: Math.abs(longestLoss),
-          lastPredictionAt: new Date(),
-          updatedAt: new Date(),
-        })
-        .where(eq(predictionAccuracyStats.id, statsId));
+      existing.totalPredictions = newTotal;
+      existing.correctPredictions = newCorrect;
+      existing.winRate = winRate;
+      existing.avgReturn = newAvg.toFixed(4);
+      existing.currentStreak = newStreak;
+      existing.longestWinStreak = longestWin;
+      existing.longestLossStreak = Math.abs(longestLoss);
+      existing.lastPredictionAt = new Date();
+      existing.updatedAt = new Date();
+      
+      await this.saveState();
     } else {
-      // Create new stats record
-      await db.insert(predictionAccuracyStats).values({
+      this.state.stats.push({
         id: statsId,
         ticker: ticker.toUpperCase(),
         signal,
@@ -437,22 +401,15 @@ class PredictionTrackingService {
         longestLossStreak: isCorrect ? 0 : 1,
         lastPredictionAt: new Date(),
       });
+      await this.saveState();
     }
 
-    // Also update global stats (no ticker/signal/horizon filter)
     await this.updateGlobalStats(isCorrect, returnPercent);
   }
 
-  /**
-   * Update global accuracy stats
-   */
   private async updateGlobalStats(isCorrect: boolean, returnPercent: number): Promise<void> {
     const globalId = 'stats_global';
-
-    const [existing] = await db.select()
-      .from(predictionAccuracyStats)
-      .where(eq(predictionAccuracyStats.id, globalId))
-      .limit(1);
+    let existing = this.state.stats.find(s => s.id === globalId);
 
     if (existing) {
       const newTotal = existing.totalPredictions + 1;
@@ -461,18 +418,16 @@ class PredictionTrackingService {
       const prevAvg = parseFloat(existing.avgReturn || '0');
       const newAvg = ((prevAvg * (newTotal - 1)) + returnPercent) / newTotal;
 
-      await db.update(predictionAccuracyStats)
-        .set({
-          totalPredictions: newTotal,
-          correctPredictions: newCorrect,
-          winRate,
-          avgReturn: newAvg.toFixed(4),
-          lastPredictionAt: new Date(),
-          updatedAt: new Date(),
-        })
-        .where(eq(predictionAccuracyStats.id, globalId));
+      existing.totalPredictions = newTotal;
+      existing.correctPredictions = newCorrect;
+      existing.winRate = winRate;
+      existing.avgReturn = newAvg.toFixed(4);
+      existing.lastPredictionAt = new Date();
+      existing.updatedAt = new Date();
+      
+      await this.saveState();
     } else {
-      await db.insert(predictionAccuracyStats).values({
+      this.state.stats.push({
         id: globalId,
         ticker: null,
         signal: null,
@@ -483,46 +438,37 @@ class PredictionTrackingService {
         avgReturn: returnPercent.toFixed(4),
         lastPredictionAt: new Date(),
       });
+      await this.saveState();
     }
   }
 
-  /**
-   * Get accuracy stats (for API/display)
-   */
   async getAccuracyStats(options?: {
     ticker?: string;
     signal?: string;
     horizon?: string;
   }): Promise<any> {
-    let query = db.select().from(predictionAccuracyStats);
+    let result = [...this.state.stats].filter(s => s.id !== 'stats_global');
 
     if (options?.ticker) {
-      query = query.where(eq(predictionAccuracyStats.ticker, options.ticker.toUpperCase())) as any;
+      result = result.filter(s => s.ticker === options.ticker!.toUpperCase());
     }
     if (options?.signal) {
-      query = query.where(eq(predictionAccuracyStats.signal, options.signal)) as any;
+      result = result.filter(s => s.signal === options.signal);
     }
     if (options?.horizon) {
-      query = query.where(eq(predictionAccuracyStats.horizon, options.horizon)) as any;
+      result = result.filter(s => s.horizon === options.horizon);
     }
 
-    const stats = await query;
-    return stats;
+    return result;
   }
 
-  /**
-   * Get global accuracy summary
-   */
   async getGlobalAccuracy(): Promise<{
     totalPredictions: number;
     winRate: string;
     avgReturn: string;
     lastUpdated: Date | null;
   }> {
-    const [global] = await db.select()
-      .from(predictionAccuracyStats)
-      .where(eq(predictionAccuracyStats.id, 'stats_global'))
-      .limit(1);
+    const global = this.state.stats.find(s => s.id === 'stats_global');
 
     if (!global) {
       return {
@@ -537,13 +483,10 @@ class PredictionTrackingService {
       totalPredictions: global.totalPredictions,
       winRate: global.winRate,
       avgReturn: global.avgReturn || '0.00',
-      lastUpdated: global.updatedAt,
+      lastUpdated: global.updatedAt || null,
     };
   }
 
-  /**
-   * Get pending predictions that need outcome checks
-   */
   async getPendingOutcomeChecks(horizon: '1h' | '4h' | '24h' | '7d'): Promise<any[]> {
     const horizonMs: Record<string, number> = {
       '1h': 60 * 60 * 1000,
@@ -554,31 +497,15 @@ class PredictionTrackingService {
 
     const cutoffTime = new Date(Date.now() - horizonMs[horizon]);
 
-    // Get predictions that were created before the cutoff and haven't been evaluated for this horizon
-    const predictions = await db.select()
-      .from(predictionEvents)
-      .where(
-        and(
-          sql`${predictionEvents.createdAt} <= ${cutoffTime}`,
-          sql`${predictionEvents.status} != 'evaluated'`
-        )
-      );
-
-    // Filter out ones that already have this horizon evaluated
     const results = [];
-    for (const pred of predictions) {
-      const [existingOutcome] = await db.select()
-        .from(predictionOutcomes)
-        .where(
-          and(
-            eq(predictionOutcomes.predictionId, pred.id),
-            eq(predictionOutcomes.horizon, horizon)
-          )
-        )
-        .limit(1);
-
-      if (!existingOutcome) {
-        results.push(pred);
+    for (const pred of this.state.events) {
+      if (new Date(pred.createdAt) <= cutoffTime && pred.status !== 'evaluated') {
+        const existingOutcome = this.state.outcomes.find(o => 
+          o.predictionId === pred.id && o.horizon === horizon
+        );
+        if (!existingOutcome) {
+          results.push(pred);
+        }
       }
     }
 

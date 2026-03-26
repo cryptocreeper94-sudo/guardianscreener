@@ -175,7 +175,7 @@ async function runSafetyCheck(chain: string, tokenAddress: string): Promise<Safe
   }
 }
 
-function calculateGuardianScore(pair: DexScreenerPair): number {
+export function calculateGuardianScore(pair: DexScreenerPair): number {
   let score = 50;
   
   const liq = pair.liquidity?.usd || 0;
@@ -211,7 +211,7 @@ function calculateGuardianScore(pair: DexScreenerPair): number {
   return Math.max(0, Math.min(100, score));
 }
 
-function generateMLPrediction(pair: DexScreenerPair): GuardianToken['mlPrediction'] {
+export function generateMLPrediction(pair: DexScreenerPair): GuardianToken['mlPrediction'] {
   const change24h = pair.priceChange?.h24 || 0;
   const change1h = pair.priceChange?.h1 || 0;
   const change6h = pair.priceChange?.h6 || 0;
@@ -391,7 +391,45 @@ function calculateAIScore(pair: DexScreenerPair, guardianScore: number): { score
   return { score, recommendation, technicalScore, momentumScore };
 }
 
-function transformPairToToken(pair: DexScreenerPair): GuardianToken {
+export function deriveAIRecommendation(
+  score: number,
+  mlPrediction: GuardianToken['mlPrediction'],
+  priceChange: number,
+  volume: number,
+  liquidity: number
+): { recommendation: 'snipe' | 'watch' | 'avoid'; aiScore: number } {
+  let aiScore = score;
+  let recommendation: 'snipe' | 'watch' | 'avoid' = 'watch';
+
+  // Adjust score based on ML prediction direction and confidence
+  if (mlPrediction.direction === 'up') {
+    aiScore += mlPrediction.confidence * 0.1; // Up to +9.5 points
+  } else if (mlPrediction.direction === 'down') {
+    aiScore -= mlPrediction.confidence * 0.1; // Up to -9.5 points
+  }
+
+  // Adjust based on recent price change
+  if (priceChange > 20) aiScore += 5;
+  else if (priceChange < -15) aiScore -= 5;
+
+  // Adjust based on volume and liquidity
+  if (volume > 100000 && liquidity > 50000) aiScore += 5;
+  else if (volume < 5000 || liquidity < 10000) aiScore -= 5;
+
+  aiScore = Math.max(0, Math.min(100, Math.round(aiScore)));
+
+  if (aiScore >= 75) {
+    recommendation = 'snipe';
+  } else if (aiScore >= 45) {
+    recommendation = 'watch';
+  } else {
+    recommendation = 'avoid';
+  }
+
+  return { recommendation, aiScore };
+}
+
+export function transformPairToToken(pair: DexScreenerPair): GuardianToken {
   const buys24h = pair.txns?.h24?.buys || 0;
   const sells24h = pair.txns?.h24?.sells || 0;
   const total24h = buys24h + sells24h;

@@ -24,6 +24,9 @@ export function useGuardianWS(options: UseGuardianWSOptions = {}) {
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const reconnectAttemptsRef = useRef(0);
+  const pingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const connect = useCallback(() => {
     if (!enabled || wsRef.current?.readyState === WebSocket.OPEN) return;
 
@@ -35,6 +38,7 @@ export function useGuardianWS(options: UseGuardianWSOptions = {}) {
 
     ws.onopen = () => {
       setConnected(true);
+      reconnectAttemptsRef.current = 0; // Reset backoff
       console.log('[Guardian WS] Connected');
       
       ws.send(JSON.stringify({
@@ -42,6 +46,13 @@ export function useGuardianWS(options: UseGuardianWSOptions = {}) {
         chains,
         tokens
       }));
+
+      // Setup keep-alive ping loop (every 30s)
+      pingIntervalRef.current = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: 'ping' }));
+        }
+      }, 30000);
     };
 
     ws.onmessage = (event) => {
@@ -51,7 +62,7 @@ export function useGuardianWS(options: UseGuardianWSOptions = {}) {
         if (msg.type === 'price_update') {
           const update = msg.data as PriceUpdate;
           setLastUpdate(update);
-          setUpdates(prev => {
+          setUpdates((prev: Map<string, PriceUpdate>) => {
             const next = new Map(prev);
             next.set(update.tokenId, update);
             return next;
@@ -66,10 +77,18 @@ export function useGuardianWS(options: UseGuardianWSOptions = {}) {
       setConnected(false);
       console.log('[Guardian WS] Disconnected');
       
+      if (pingIntervalRef.current) {
+        clearInterval(pingIntervalRef.current);
+        pingIntervalRef.current = null;
+      }
+      
       if (enabled) {
+        const delay = Math.min(3000 * Math.pow(2, reconnectAttemptsRef.current), 30000);
+        reconnectAttemptsRef.current++;
+        console.log(`[Guardian WS] Reconnecting in ${delay}ms...`);
         reconnectTimeoutRef.current = setTimeout(() => {
           connect();
-        }, 3000);
+        }, delay);
       }
     };
 
@@ -81,6 +100,10 @@ export function useGuardianWS(options: UseGuardianWSOptions = {}) {
   const disconnect = useCallback(() => {
     if (reconnectTimeoutRef.current) {
       clearTimeout(reconnectTimeoutRef.current);
+    }
+    if (pingIntervalRef.current) {
+      clearInterval(pingIntervalRef.current);
+      pingIntervalRef.current = null;
     }
     if (wsRef.current) {
       wsRef.current.close();

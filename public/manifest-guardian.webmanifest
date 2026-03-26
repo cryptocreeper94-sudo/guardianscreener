@@ -1,8 +1,8 @@
 {
   "id": "/guardian-screener",
-  "name": "Guardian Scanner",
+  "name": "Guardian Screener",
   "short_name": "Guardian",
-  "description": "AI-powered token analysis scanner with Pulse predictive scoring. Real-time safety checks, multi-chain monitoring, and Strike Agent recommendations.",
+  "description": "AI-powered token analysis screener with Pulse predictive scoring. Real-time safety checks, multi-chain monitoring, and Strike Agent recommendations.",
   "start_url": "/guardian-screener",
   "display": "standalone",
   "background_color": "#0a0a14",
@@ -31,7 +31,7 @@
       "sizes": "1080x1920",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Guardian Scanner Launch"
+      "label": "Guardian Screener Launch"
     }
   ],
   "shortcuts": [

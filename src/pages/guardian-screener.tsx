@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
@@ -61,10 +62,16 @@ const CHAINS = [
   { id: "all", name: "All Chains", short: "All", icon: "🌐", color: "from-white/20 to-white/10" },
   { id: "solana", name: "Solana", short: "SOL", icon: "◎", color: "from-purple-500 to-green-400" },
   { id: "ethereum", name: "Ethereum", short: "ETH", icon: "Ξ", color: "from-blue-500 to-purple-500" },
-  { id: "base", name: "Base", short: "BASE", icon: "🔵", color: "from-blue-400 to-blue-600" },
   { id: "bsc", name: "BNB Chain", short: "BSC", icon: "🟡", color: "from-yellow-400 to-yellow-600" },
   { id: "arbitrum", name: "Arbitrum", short: "ARB", icon: "🔷", color: "from-blue-400 to-cyan-500" },
   { id: "polygon", name: "Polygon", short: "MATIC", icon: "🟣", color: "from-purple-500 to-purple-700" },
+  { id: "base", name: "Base", short: "BASE", icon: "🔵", color: "from-blue-400 to-blue-600" },
+  { id: "avalanche", name: "Avalanche", short: "AVAX", icon: "🔺", color: "from-red-500 to-red-700" },
+  { id: "fantom", name: "Fantom", short: "FTM", icon: "👻", color: "from-blue-600 to-blue-800" },
+  { id: "optimism", name: "Optimism", short: "OP", icon: "🔴", color: "from-red-500 to-red-600" },
+  { id: "cronos", name: "Cronos", short: "CRO", icon: "💠", color: "from-cyan-600 to-blue-800" },
+  { id: "tron", name: "Tron", short: "TRX", icon: "💎", color: "from-red-600 to-red-800" },
+  { id: "zksync", name: "zkSync", short: "ZK", icon: "⚡", color: "from-indigo-500 to-blue-600" },
   { id: "darkwave", name: "DarkWave", short: "DW", icon: "◆", color: "from-cyan-400 to-purple-500" },
 ];
 
@@ -565,7 +572,7 @@ function TokenRow({ token, isExpanded, onToggleExpand, onToggleWatchlist, onTrad
           <Link href={`/guardian-screener/${token.chain}/${token.contractAddress}`} onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-2">
               <div className="relative flex-shrink-0">
-                <img src={token.logo} alt="" className="w-7 h-7 rounded-full bg-white/10" onError={(e) => { (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/shapes/svg?seed=${token.symbol}`; }} />
+                <img src={token.logo} alt="" className="w-7 h-7 rounded-full bg-white/10" onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${token.symbol}&background=0D0D12&color=fff&rounded=true&font-size=0.45`; }} />
                 <span className="absolute -bottom-0.5 -right-0.5 text-[8px] bg-slate-900 rounded px-0.5">{token.chainIcon}</span>
               </div>
               <div className="flex flex-col min-w-0">
@@ -594,7 +601,22 @@ function TokenRow({ token, isExpanded, onToggleExpand, onToggleWatchlist, onTrad
         
         {/* Price */}
         <td className="py-2 pr-4 text-right">
-          <span className="text-xs font-medium text-white tabular-nums">{token.priceUsd}</span>
+          {token.price < 0.0001 ? (
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <span className="text-xs font-medium text-white tabular-nums cursor-help border-b border-dashed border-white/20 pb-[1px]" data-testid="price-subscript">
+                    {token.priceUsd}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent className="bg-slate-900 border-white/10" side="top" sideOffset={5}>
+                  <p className="text-xs text-white font-mono">${token.price.toFixed(12).replace(/0+$/, '').replace(/\.$/, '')}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ) : (
+            <span className="text-xs font-medium text-white tabular-nums">{token.priceUsd}</span>
+          )}
         </td>
         
         {/* Age */}
@@ -696,9 +718,9 @@ function LeftSidebar({
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center">
             <Shield className="w-4 h-4 text-white" />
           </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-white text-sm">GUARDIAN</span>
-            <span className="text-[9px] text-white/40">SCANNER PRO</span>
+          <div className="flex flex-col ml-3">
+            <span className="font-bold text-lg tracking-tight leading-none text-white">GUARDIAN</span>
+            <span className="text-[9px] text-white/40">SCREENER PRO</span>
           </div>
         </Link>
       </div>
@@ -986,7 +1008,7 @@ export default function GuardianScreener() {
               rank: i + 1,
               name: t.name || 'Unknown',
               symbol: t.symbol || 'UNK',
-              logo: t.imageUrl || `https://api.dicebear.com/7.x/shapes/svg?seed=${t.symbol}`,
+              logo: t.imageUrl || `https://ui-avatars.com/api/?name=${t.symbol}&background=0D0D12&color=fff&rounded=true&font-size=0.45`,
               contractAddress: t.contractAddress || '',
               pairAddress: t.pairAddress || '',
               chain: t.chain || selectedChain,
@@ -1373,7 +1395,7 @@ export default function GuardianScreener() {
                       const gs = t.guardianScore || 50;
                       return {
                         id: t.id, rank: i + 1, name: t.name || 'Unknown', symbol: t.symbol || 'UNK',
-                        logo: t.imageUrl || `https://api.dicebear.com/7.x/shapes/svg?seed=${t.symbol}`,
+                        logo: t.imageUrl || `https://ui-avatars.com/api/?name=${t.symbol}&background=0D0D12&color=fff&rounded=true&font-size=0.45`,
                         contractAddress: t.contractAddress || '', pairAddress: t.pairAddress || '',
                         chain: t.chain || selectedChain, chainIcon: CHAINS.find(c => c.id === (t.chain || selectedChain))?.icon || "◎",
                         dex: t.dex || 'DEX', dexShort: t.dexShort || 'DEX', price: t.price || 0, priceUsd: formatPrice(t.price || 0),
@@ -1487,9 +1509,35 @@ export default function GuardianScreener() {
             <tbody>
               {isLoading ? (
                 Array.from({ length: 15 }).map((_, i) => (
-                  <tr key={i} className="border-b border-white/5 animate-pulse">
-                    <td colSpan={15} className="py-3">
-                      <div className="h-6 bg-white/5 rounded mx-3" />
+                  <tr key={i} className="border-b border-white/5">
+                    <td className="pl-2 pr-1 py-3 w-6"><Skeleton className="h-4 w-4 rounded-sm bg-white/5" /></td>
+                    <td className="pr-2 py-3 w-8"><Skeleton className="h-4 w-4 bg-white/5" /></td>
+                    <td className="py-3 pr-3 min-w-[180px]">
+                      <div className="flex items-center gap-2">
+                        <Skeleton className="h-7 w-7 rounded-full bg-white/5 flex-shrink-0" />
+                        <div className="space-y-1 w-full max-w-[120px]">
+                          <Skeleton className="h-3 w-full bg-white/5" />
+                          <Skeleton className="h-2 w-2/3 bg-white/5" />
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 pr-3"><Skeleton className="h-5 w-16 rounded-full bg-white/5" /></td>
+                    <td className="py-3 pr-3 hidden xl:table-cell"><Skeleton className="h-5 w-12 rounded-full bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right"><Skeleton className="h-4 w-16 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right hidden lg:table-cell"><Skeleton className="h-4 w-10 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right hidden lg:table-cell"><Skeleton className="h-4 w-12 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right"><Skeleton className="h-4 w-16 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-4 hidden xl:table-cell w-[120px]"><Skeleton className="h-6 w-full bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right hidden xl:table-cell"><Skeleton className="h-4 w-12 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right"><Skeleton className="h-4 w-12 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right hidden lg:table-cell"><Skeleton className="h-4 w-12 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-4 text-right hidden xl:table-cell"><Skeleton className="h-4 w-16 ml-auto bg-white/5" /></td>
+                    <td className="py-3 pr-3"><Skeleton className="h-6 w-8 rounded-md bg-white/5" /></td>
+                    <td className="py-3 pr-3 w-16">
+                      <div className="flex gap-1">
+                        <Skeleton className="h-6 w-10 rounded bg-white/5" />
+                        <Skeleton className="h-6 w-6 rounded bg-white/5" />
+                      </div>
                     </td>
                   </tr>
                 ))

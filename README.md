@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# GuardianScreener
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GuardianScreener is a high-performance multi-chain token screener and analysis dashboard built by DarkWave Studios for the Trust Layer ecosystem. It provides real-time token filtering across 12 blockchain networks using DexScreener data, enhanced with AI-driven Snipe/Watch/Avoid recommendations and automated token safety grading (Guardian Score).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Multi-Chain Screening**: Real-time filtering across 12 chains (Solana, Ethereum, BSC, Arbitrum, Polygon, Base, Avalanche, Fantom, Optimism, Cronos, Tron, zkSync).
+- **AI Token Scoring**: Machine learning models grade tokens on a 0-100 Guardian Score and output Snipe, Watch, or Avoid recommendations.
+- **WebSocket Price Feeds**: Live price, volume, and tick updates powered by robust heartbeat/reconnect-enabled WebSockets.
+- **Strike Agent Dashboard**: Granular per-token safety reports (HoneyPot risk, contract mint/freeze authorities, and liquidity locks), presets, and watchlists.
+- **Embedded Trading Widgets**: In-line DEX swap widgets and QuickTradePanel for immediate trade execution.
+- **Professional Aesthetics**: Ultra-Premium design system with bento-box layouts, glassmorphism, UI-Avatar identity generation, and robust loading skeletons.
+- **Persistent Analytics**: Intelligent prediction tracking and ML outcome validation stored securely via local disk persistence engine.
 
-## React Compiler
+## Technology Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+- React 19 + TypeScript
+- Vite Build Tooling
+- TailwindCSS v4 + Framer Motion
+- Shadcn UI (Radix Primitives)
+- Wouter (Routing)
 
-## Expanding the ESLint configuration
+### Backend
+- Express.js Node Server
+- `express-rate-limit` (IPv6-safe DDoS Protection)
+- Native `ws` for WebSocket feeds
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Running Locally
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. **Start Development Environment**
+   This launches both the Vite client server and the Express backend simultaneously via `tsx`.
+   ```bash
+   npm run dev
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. **Build for Production**
+   ```bash
+   npm run build
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4. **Start Production Server**
+   ```bash
+   npm start
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Architecture Notes
+- The `server/services/pulse` directory contains the core AI engines and tracking modules.
+- `src/hooks/use-guardian-screener-ws.ts` handles the resilient client-side WebSocket context.
+- UI assets heavily leverage Lucide-React iconography and specialized `.webmanifest` configurations optimized for Progressive Web Application (PWA) installation.

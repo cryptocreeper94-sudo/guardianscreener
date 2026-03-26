@@ -34,35 +34,56 @@ export default function TokenDetail() {
   const { data: chartData, isLoading: isLoadingChart } = useQuery({
     queryKey: ["chart", chain, address, timeframe],
     queryFn: async () => {
-      // For now, generate mock OHLCV to demonstrate the TradingView chart integration
-      // In production, this would call DexScreener's or BirdEye's history API
-      const mockData = [];
-      const volumeData = [];
-      const now = Math.floor(Date.now() / 1000);
-      let price = token?.price || 0.001;
-      
       const count = 100;
-      const intervalSecs = timeframe === "1m" ? 60 : timeframe === "5m" ? 300 : timeframe === "15m" ? 900 : timeframe === "1H" ? 3600 : 86400;
+      let resParam = "15";
+      let intervalSecs = 900;
       
-      for (let i = count; i >= 0; i--) {
-        const time = now - (i * intervalSecs);
-        const volatility = price * 0.05;
-        const open = price + (Math.random() - 0.5) * volatility;
-        const close = open + (Math.random() - 0.5) * volatility;
-        const high = Math.max(open, close) + Math.random() * volatility;
-        const low = Math.min(open, close) - Math.random() * volatility;
-        const vol = Math.random() * 50000;
-        
-        mockData.push({ time, open, high, low, close });
-        volumeData.push({ 
-          time, 
-          value: vol, 
-          color: close >= open ? "rgba(34, 197, 94, 0.4)" : "rgba(239, 68, 68, 0.4)" 
-        });
-        
-        price = close;
+      switch (timeframe) {
+        case "1m": resParam = "1"; intervalSecs = 60; break;
+        case "5m": resParam = "5"; intervalSecs = 300; break;
+        case "15m": resParam = "15"; intervalSecs = 900; break;
+        case "1H": resParam = "60"; intervalSecs = 3600; break;
+        case "4H": resParam = "240"; intervalSecs = 14400; break;
+        case "1D": resParam = "1D"; intervalSecs = 86400; break;
       }
-      return { candles: mockData, volume: volumeData };
+      
+      const currentTime = Math.floor(Date.now() / 1000);
+      const fromTime = currentTime - (intervalSecs * count);
+      const toTime = currentTime;
+      
+      // Call DexScreener history endpoint
+      const candleRes = await fetch(`https://api.dexscreener.com/latest/dex/candles/${chain}/${address}?from=${fromTime}&to=${toTime}&res=${resParam}`);
+      if (!candleRes.ok) throw new Error("Failed to fetch historical chart data");
+      
+      const candleJson = await candleRes.json();
+      
+      const formattedCandles = [];
+      const volumeData = [];
+      
+      if (candleJson && candleJson.length > 0) {
+        // Map the DexScreener response
+        for (const c of candleJson) {
+           formattedCandles.push({
+             time: Math.floor(c.timestamp / 1000), // convert to seconds
+             open: Number(c.open),
+             high: Number(c.high),
+             low: Number(c.low),
+             close: Number(c.close)
+           });
+           
+           volumeData.push({
+             time: Math.floor(c.timestamp / 1000),
+             value: Number(c.volumeUsd || c.volume || 0),
+             color: Number(c.close) >= Number(c.open) ? "rgba(34, 197, 94, 0.4)" : "rgba(239, 68, 68, 0.4)"
+           });
+        }
+      }
+      
+      // Sort data to ensure chronological order for Lightweight Charts
+      formattedCandles.sort((a, b) => a.time - b.time);
+      volumeData.sort((a, b) => a.time - b.time);
+      
+      return { candles: formattedCandles, volume: volumeData };
     },
     enabled: !!token,
   });
@@ -174,7 +195,7 @@ export default function TokenDetail() {
         <AlertTriangle className="w-12 h-12 text-yellow-400 opacity-50" />
         <p>Token not found on {chain}.</p>
         <button onClick={() => navigate("/")} className="text-cyan-400 hover:underline flex items-center gap-1">
-          <ArrowLeft className="w-4 h-4" /> Back to Scanner
+          <ArrowLeft className="w-4 h-4" /> Back to Screener
         </button>
       </div>
     );
@@ -204,7 +225,7 @@ export default function TokenDetail() {
         </button>
         
         <div className="flex items-center gap-3">
-          <img src={token.logo || `https://api.dicebear.com/7.x/shapes/svg?seed=${token.symbol}`} className="w-8 h-8 rounded-full" alt="logo" />
+          <img src={token.logo || `https://ui-avatars.com/api/?name=${token.symbol}&background=0D0D12&color=fff&rounded=true&font-size=0.45`} className="w-8 h-8 rounded-full" alt="logo" />
           <div>
             <h1 className="flex items-center gap-2 font-bold text-lg leading-tight">
               {token.symbol} <span className="text-white/40 font-normal text-sm">/ {token.pairAddress ? token.dex.toUpperCase() : "DEX"}</span>
