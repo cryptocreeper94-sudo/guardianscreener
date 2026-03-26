@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { createChart, type ColorType, type ISeriesApi, type IChartApi } from "lightweight-charts";
-import { Shield, Users, Activity, ArrowLeft, RefreshCw, Copy, AlertTriangle } from "lucide-react";
+import { Shield, Users, Activity, ArrowLeft, RefreshCw, Copy, AlertTriangle, Lock, Skull } from "lucide-react";
 import { QuickTradePanel } from "@/components/quick-trade-panel";
 import { useGuardianWS } from "@/hooks/use-guardian-screener-ws";
 
