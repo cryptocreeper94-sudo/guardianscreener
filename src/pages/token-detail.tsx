@@ -17,7 +17,6 @@ export default function TokenDetail() {
   
   // Real-time price feed via WS
   const { lastUpdate } = useGuardianWS(address || "");
-  const livePrice = lastUpdate?.price || token?.price || 0.001;
 
   // Fetch Token Data (Reusing the scanner service endpoint)
   const { data: token, isLoading } = useQuery({
@@ -29,6 +28,9 @@ export default function TokenDetail() {
     },
     refetchInterval: 15000,
   });
+
+  // Derive live price AFTER token is declared
+  const livePrice = lastUpdate?.price || token?.price || 0.001;
 
   // Fetch Chart History
   const { data: chartData, isLoading: isLoadingChart } = useQuery({
