@@ -1,5 +1,5 @@
 ﻿/**
- * Cortex Bridge �” Guardian Screener
+ * Cortex Bridge ” Guardian Screener
  * Trust Layer Ecosystem · Lume-OS Connectivity Module
  * Generated: 2026-04-30 · DarkWave Studios LLC
  *

@@ -3005,7 +3005,7 @@ const SEED_ZONES: InsertCityZone[] = [
   { era: "medieval", name: "Artisan's Row", description: "Workshops and craft halls lining a busy street", zoneType: "mixed", gridX: 8, gridY: 0, width: 4, height: 4, totalPlots: 16, occupiedPlots: 0, architectureStyle: "medieval" },
 
   // Wild West Era
-  { era: "wildwest", name: "Main Street", description: "The dusty heart of town �” saloon, general store, and the marshal's office", zoneType: "commercial", gridX: 0, gridY: 0, width: 4, height: 4, totalPlots: 16, occupiedPlots: 0, architectureStyle: "wildwest" },
+  { era: "wildwest", name: "Main Street", description: "The dusty heart of town ” saloon, general store, and the marshal's office", zoneType: "commercial", gridX: 0, gridY: 0, width: 4, height: 4, totalPlots: 16, occupiedPlots: 0, architectureStyle: "wildwest" },
   { era: "wildwest", name: "Railroad Depot", description: "Where the iron horse meets the frontier", zoneType: "civic", gridX: 4, gridY: 0, width: 4, height: 4, totalPlots: 16, occupiedPlots: 0, architectureStyle: "wildwest" },
   { era: "wildwest", name: "Settler's Row", description: "Homesteads and cabins for families carving a life from the land", zoneType: "residential", gridX: 0, gridY: 4, width: 4, height: 4, totalPlots: 16, occupiedPlots: 0, architectureStyle: "wildwest" },
   { era: "wildwest", name: "Sacred Valley", description: "Ancestral lands of the First Nations, rich with history and spirit", zoneType: "nature", gridX: 4, gridY: 4, width: 4, height: 4, totalPlots: 16, occupiedPlots: 0, architectureStyle: "wildwest" },
