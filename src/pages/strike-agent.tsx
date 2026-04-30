@@ -448,7 +448,7 @@ function TokenCard({ rec, expanded, onToggle, isFavorite, onToggleFavorite }: {
                 <span className="truncate max-w-[100px]">
                   {rec.tokenName || rec.tokenAddress.slice(0, 8) + '...'}
                 </span>
-                <span className="text-white/30">â€¢</span>
+                <span className="text-white/30">*</span>
                 <span className="flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {tokenAge()}
@@ -922,7 +922,7 @@ export default function StrikeAgentPage() {
                     <div className="mb-3 p-3 bg-white/5 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-lg">ââ€”Ž</span>
+                          <span className="text-lg">?--?</span>
                           <span className="text-white text-sm font-medium">Phantom (Solana)</span>
                         </div>
                         {solanaWallet.wallet ? (

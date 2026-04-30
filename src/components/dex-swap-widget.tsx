@@ -138,7 +138,7 @@ export function DexSwapWidget({
               <div className="text-xs text-muted-foreground mb-2">You Receive</div>
               <div className="flex gap-3">
                 <div className="flex-1 text-xl font-bold text-muted-foreground">
-                  {quote ? formatAmount(quote.outputAmount, chain === 'solana' ? 9 : 18) : '”'}
+                  {quote ? formatAmount(quote.outputAmount, chain === 'solana' ? 9 : 18) : '"'}
                 </div>
                 <Input
                   value={outputToken}

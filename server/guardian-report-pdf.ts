@@ -427,17 +427,17 @@ function renderDisclaimer(doc: PDFKit.PDFDocument, cert: any) {
     "This security certification report is provided by Guardian, a product of DarkWave Trust Layer (DWTL). The findings and score presented in this report represent the state of the project at the time of analysis and do not guarantee future security.",
     "",
     "Important Notices:",
-    "• This report is based on the information and access provided at the time of assessment.",
-    "• Security is an ongoing process; this certification represents a point-in-time analysis.",
-    "• The score and grade are based on Guardian's proprietary 6-pillar methodology.",
-    "• Blockchain verification records are immutable and can be independently verified.",
-    "• This certification does not constitute financial advice or an endorsement of any token or investment.",
-    "• Guardian and DWTL assume no liability for losses arising from reliance on this report.",
+    "* This report is based on the information and access provided at the time of assessment.",
+    "* Security is an ongoing process; this certification represents a point-in-time analysis.",
+    "* The score and grade are based on Guardian's proprietary 6-pillar methodology.",
+    "* Blockchain verification records are immutable and can be independently verified.",
+    "* This certification does not constitute financial advice or an endorsement of any token or investment.",
+    "* Guardian and DWTL assume no liability for losses arising from reliance on this report.",
     "",
     "Certification Validity:",
-    `• This certification is valid from ${cert.validFrom ? new Date(cert.validFrom).toLocaleDateString() : "N/A"} until ${cert.validUntil ? new Date(cert.validUntil).toLocaleDateString() : "N/A"}.`,
-    "• Material changes to the project may invalidate this certification.",
-    "• Re-certification is recommended annually or after significant updates.",
+    `* This certification is valid from ${cert.validFrom ? new Date(cert.validFrom).toLocaleDateString() : "N/A"} until ${cert.validUntil ? new Date(cert.validUntil).toLocaleDateString() : "N/A"}.`,
+    "* Material changes to the project may invalidate this certification.",
+    "* Re-certification is recommended annually or after significant updates.",
     "",
     "For questions about this report, contact: guardian@dwtl.io",
     "",
@@ -451,7 +451,7 @@ function renderDisclaimer(doc: PDFKit.PDFDocument, cert: any) {
       y += 10;
       return;
     }
-    const isBullet = line.startsWith("•");
+    const isBullet = line.startsWith("*");
     const isHeader = line.endsWith(":");
     doc.fontSize(isBullet ? 9 : isHeader ? 11 : 10)
       .fillColor(isHeader ? BRAND_COLORS.text : BRAND_COLORS.textLight)

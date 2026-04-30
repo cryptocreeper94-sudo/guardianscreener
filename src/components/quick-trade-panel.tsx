@@ -28,14 +28,14 @@ interface QuickTradePanelProps {
 type Chain = 'solana' | 'ethereum' | 'base' | 'polygon' | 'bsc' | 'arbitrum' | 'optimism' | 'avalanche';
 
 const CHAINS: { id: Chain; name: string; icon: string; color: string; native: string }[] = [
-  { id: 'solana', name: 'Solana', icon: '‚‚Äîé', color: 'from-purple-500 to-cyan-500', native: 'SOL' },
+  { id: 'solana', name: 'Solana', icon: '?--?', color: 'from-purple-500 to-cyan-500', native: 'SOL' },
   { id: 'ethereum', name: 'Ethereum', icon: 'Œû', color: 'from-blue-500 to-purple-500', native: 'ETH' },
-  { id: 'base', name: 'Base', icon: 'ü‚Äùµ', color: 'from-blue-400 to-blue-600', native: 'ETH' },
+  { id: 'base', name: 'Base', icon: '??"?', color: 'from-blue-400 to-blue-600', native: 'ETH' },
   { id: 'polygon', name: 'Polygon', icon: '‚¨°', color: 'from-purple-400 to-purple-600', native: 'MATIC' },
-  { id: 'bsc', name: 'BNB Chain', icon: 'ü‚Äù∂', color: 'from-yellow-400 to-yellow-600', native: 'BNB' },
-  { id: 'arbitrum', name: 'Arbitrum', icon: 'ü‚Äù∑', color: 'from-blue-500 to-cyan-500', native: 'ETH' },
-  { id: 'optimism', name: 'Optimism', icon: 'ü‚Äù¥', color: 'from-red-400 to-red-600', native: 'ETH' },
-  { id: 'avalanche', name: 'Avalanche', icon: 'ü‚Äù∫', color: 'from-red-500 to-red-600', native: 'AVAX' },
+  { id: 'bsc', name: 'BNB Chain', icon: '??"?', color: 'from-yellow-400 to-yellow-600', native: 'BNB' },
+  { id: 'arbitrum', name: 'Arbitrum', icon: '??"?', color: 'from-blue-500 to-cyan-500', native: 'ETH' },
+  { id: 'optimism', name: 'Optimism', icon: '??"?', color: 'from-red-400 to-red-600', native: 'ETH' },
+  { id: 'avalanche', name: 'Avalanche', icon: '??"?', color: 'from-red-500 to-red-600', native: 'AVAX' },
 ];
 
 const SOLANA_DEXES = [

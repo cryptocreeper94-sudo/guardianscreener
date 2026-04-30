@@ -176,11 +176,11 @@ export function QuickSnipeModal({
                   <span className={safetyColor}>
                     Safety: {safetyData.safetyScore}/100
                   </span>
-                  <span className="text-gray-500">•</span>
+                  <span className="text-gray-500">*</span>
                   <span className="text-gray-400">
                     ${(safetyData.liquidityUsd / 1000).toFixed(1)}K Liq
                   </span>
-                  <span className="text-gray-500">•</span>
+                  <span className="text-gray-500">*</span>
                   <span className="text-gray-400">
                     {safetyData.holderCount} Holders
                   </span>
@@ -351,7 +351,7 @@ export function QuickSnipeModal({
             </div>
 
             <p className="text-xs text-gray-500 text-center mt-3">
-              Using {preset.name} preset • Priority: {(config.priorityFeeSol * 1000).toFixed(1)} mSOL
+              Using {preset.name} preset * Priority: {(config.priorityFeeSol * 1000).toFixed(1)} mSOL
             </p>
           </GlassCard>
         </motion.div>

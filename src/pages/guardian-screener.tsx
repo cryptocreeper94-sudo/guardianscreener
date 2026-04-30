@@ -59,20 +59,20 @@ import { QuickTradePanel } from "@/components/quick-trade-panel";
 import { PriceSparkline } from "@/components/sniper/price-sparkline";
 
 const CHAINS = [
-  { id: "all", name: "All Chains", short: "All", icon: "ðŸŒ", color: "from-white/20 to-white/10" },
-  { id: "solana", name: "Solana", short: "SOL", icon: "ââ€”Ž", color: "from-purple-500 to-green-400" },
+  { id: "all", name: "All Chains", short: "All", icon: "????", color: "from-white/20 to-white/10" },
+  { id: "solana", name: "Solana", short: "SOL", icon: "?--?", color: "from-purple-500 to-green-400" },
   { id: "ethereum", name: "Ethereum", short: "ETH", icon: "Îž", color: "from-blue-500 to-purple-500" },
-  { id: "bsc", name: "BNB Chain", short: "BSC", icon: "ðŸŸ¡", color: "from-yellow-400 to-yellow-600" },
-  { id: "arbitrum", name: "Arbitrum", short: "ARB", icon: "ðŸâ€·", color: "from-blue-400 to-cyan-500" },
-  { id: "polygon", name: "Polygon", short: "MATIC", icon: "ðŸŸ£", color: "from-purple-500 to-purple-700" },
-  { id: "base", name: "Base", short: "BASE", icon: "ðŸâ€µ", color: "from-blue-400 to-blue-600" },
-  { id: "avalanche", name: "Avalanche", short: "AVAX", icon: "ðŸâ€º", color: "from-red-500 to-red-700" },
-  { id: "fantom", name: "Fantom", short: "FTM", icon: "ðŸâ€˜»", color: "from-blue-600 to-blue-800" },
-  { id: "optimism", name: "Optimism", short: "OP", icon: "ðŸâ€´", color: "from-red-500 to-red-600" },
-  { id: "cronos", name: "Cronos", short: "CRO", icon: "ðŸâ€™ ", color: "from-cyan-600 to-blue-800" },
-  { id: "tron", name: "Tron", short: "TRX", icon: "ðŸâ€™Ž", color: "from-red-600 to-red-800" },
+  { id: "bsc", name: "BNB Chain", short: "BSC", icon: "????", color: "from-yellow-400 to-yellow-600" },
+  { id: "arbitrum", name: "Arbitrum", short: "ARB", icon: "??"?", color: "from-blue-400 to-cyan-500" },
+  { id: "polygon", name: "Polygon", short: "MATIC", icon: "????", color: "from-purple-500 to-purple-700" },
+  { id: "base", name: "Base", short: "BASE", icon: "??"?", color: "from-blue-400 to-blue-600" },
+  { id: "avalanche", name: "Avalanche", short: "AVAX", icon: "??"?", color: "from-red-500 to-red-700" },
+  { id: "fantom", name: "Fantom", short: "FTM", icon: "??'?", color: "from-blue-600 to-blue-800" },
+  { id: "optimism", name: "Optimism", short: "OP", icon: "??"?", color: "from-red-500 to-red-600" },
+  { id: "cronos", name: "Cronos", short: "CRO", icon: "??'?", color: "from-cyan-600 to-blue-800" },
+  { id: "tron", name: "Tron", short: "TRX", icon: "??'?", color: "from-red-600 to-red-800" },
   { id: "zksync", name: "zkSync", short: "ZK", icon: "âš¡", color: "from-indigo-500 to-blue-600" },
-  { id: "darkwave", name: "DarkWave", short: "DW", icon: "ââ€”†", color: "from-cyan-400 to-purple-500" },
+  { id: "darkwave", name: "DarkWave", short: "DW", icon: "?--?", color: "from-cyan-400 to-purple-500" },
 ];
 
 const TIME_FILTERS = [
@@ -100,15 +100,15 @@ const SORT_OPTIONS = [
 
 // Category filters for different token types
 const CATEGORY_FILTERS = [
-  { id: "all", label: "All", icon: "ðŸŒ", color: "bg-white/10" },
-  { id: "meme", label: "Meme", icon: "ðŸ¸", color: "bg-green-500/20" },
-  { id: "defi", label: "DeFi", icon: "ðŸ¦", color: "bg-blue-500/20" },
-  { id: "bluechip", label: "Blue Chip", icon: "ðŸâ€™Ž", color: "bg-purple-500/20" },
-  { id: "gaming", label: "Gaming", icon: "ðŸŽ®", color: "bg-pink-500/20" },
-  { id: "ai", label: "AI", icon: "ðŸ¤â€“", color: "bg-cyan-500/20" },
-  { id: "nft", label: "NFT", icon: "ðŸâ€“¼ï¸", color: "bg-orange-500/20" },
-  { id: "stable", label: "Stable", icon: "ðŸâ€™µ", color: "bg-emerald-500/20" },
-  { id: "rwa", label: "RWA", icon: "ðŸ ", color: "bg-amber-500/20" },
+  { id: "all", label: "All", icon: "????", color: "bg-white/10" },
+  { id: "meme", label: "Meme", icon: "????", color: "bg-green-500/20" },
+  { id: "defi", label: "DeFi", icon: "????", color: "bg-blue-500/20" },
+  { id: "bluechip", label: "Blue Chip", icon: "??'?", color: "bg-purple-500/20" },
+  { id: "gaming", label: "Gaming", icon: "????", color: "bg-pink-500/20" },
+  { id: "ai", label: "AI", icon: "???-", color: "bg-cyan-500/20" },
+  { id: "nft", label: "NFT", icon: "??-????", color: "bg-orange-500/20" },
+  { id: "stable", label: "Stable", icon: "??'?", color: "bg-emerald-500/20" },
+  { id: "rwa", label: "RWA", icon: "????", color: "bg-amber-500/20" },
 ];
 
 interface SafetyData {
@@ -1012,7 +1012,7 @@ export default function GuardianScreener() {
               contractAddress: t.contractAddress || '',
               pairAddress: t.pairAddress || '',
               chain: t.chain || selectedChain,
-              chainIcon: CHAINS.find(c => c.id === (t.chain || selectedChain))?.icon || "ââ€”Ž",
+              chainIcon: CHAINS.find(c => c.id === (t.chain || selectedChain))?.icon || "?--?",
               dex: t.dex || 'DEX',
               dexShort: t.dexShort || 'DEX',
               price: t.price || 0,
@@ -1397,7 +1397,7 @@ export default function GuardianScreener() {
                         id: t.id, rank: i + 1, name: t.name || 'Unknown', symbol: t.symbol || 'UNK',
                         logo: t.imageUrl || `https://ui-avatars.com/api/?name=${t.symbol}&background=0D0D12&color=fff&rounded=true&font-size=0.45`,
                         contractAddress: t.contractAddress || '', pairAddress: t.pairAddress || '',
-                        chain: t.chain || selectedChain, chainIcon: CHAINS.find(c => c.id === (t.chain || selectedChain))?.icon || "ââ€”Ž",
+                        chain: t.chain || selectedChain, chainIcon: CHAINS.find(c => c.id === (t.chain || selectedChain))?.icon || "?--?",
                         dex: t.dex || 'DEX', dexShort: t.dexShort || 'DEX', price: t.price || 0, priceUsd: formatPrice(t.price || 0),
                         age: (t.ageHours || 0) < 1 ? `${Math.floor((t.ageHours || 0) * 60)}m` : (t.ageHours || 0) < 24 ? `${Math.floor(t.ageHours)}h` : `${Math.floor(t.ageHours / 24)}d`,
                         ageMinutes: (t.ageHours || 0) * 60, txns: (t.txns24h?.buys || 0) + (t.txns24h?.sells || 0),

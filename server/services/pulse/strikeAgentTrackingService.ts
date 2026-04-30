@@ -124,7 +124,7 @@ class StrikeAgentTrackingService {
         status: 'pending',
       });
 
-      console.log(`ðŸŽ¯ [StrikeAgentTracking] Logged prediction ${predictionId}: ${input.aiRecommendation.toUpperCase()} ${input.tokenSymbol} @ $${input.priceUsd}`);
+      console.log(`???? [StrikeAgentTracking] Logged prediction ${predictionId}: ${input.aiRecommendation.toUpperCase()} ${input.tokenSymbol} @ $${input.priceUsd}`);
 
       return { id: predictionId, payloadHash, success: true };
     } catch (error: any) {
@@ -177,7 +177,7 @@ class StrikeAgentTrackingService {
         .set({ status: 'evaluated' })
         .where(eq(strikeAgentPredictions.id, input.predictionId));
 
-      console.log(`ðŸâ€œŠ [StrikeAgentTracking] Recorded outcome for ${prediction.tokenSymbol} @ ${input.horizon}: ${outcome} (${priceChangePercent.toFixed(2)}%)`);
+      console.log(`??"? [StrikeAgentTracking] Recorded outcome for ${prediction.tokenSymbol} @ ${input.horizon}: ${outcome} (${priceChangePercent.toFixed(2)}%)`);
 
       return true;
     } catch (error: any) {

@@ -24,13 +24,13 @@ interface TopSignal {
 }
 
 const CHAINS = [
-  { id: 'all', label: 'All Chains', icon: 'ğŸŒ' },
-  { id: 'solana', label: 'Solana', icon: 'ââ€”' },
+  { id: 'all', label: 'All Chains', icon: '????' },
+  { id: 'solana', label: 'Solana', icon: '?--?' },
   { id: 'ethereum', label: 'Ethereum', icon: 'Î' },
-  { id: 'base', label: 'Base', icon: 'ğŸâ€µ' },
-  { id: 'polygon', label: 'Polygon', icon: 'ğŸŸ£' },
-  { id: 'arbitrum', label: 'Arbitrum', icon: 'ğŸâ€·' },
-  { id: 'bsc', label: 'BSC', icon: 'ğŸŸ¡' },
+  { id: 'base', label: 'Base', icon: '??"?' },
+  { id: 'polygon', label: 'Polygon', icon: '????' },
+  { id: 'arbitrum', label: 'Arbitrum', icon: '??"?' },
+  { id: 'bsc', label: 'BSC', icon: '????' },
 ];
 
 const CATEGORY_STYLES: Record<string, { bg: string; text: string; label: string }> = {

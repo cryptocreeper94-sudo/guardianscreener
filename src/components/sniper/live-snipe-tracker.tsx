@@ -233,7 +233,7 @@ export function LiveSnipeTracker({ userId }: LiveSnipeTrackerProps) {
                       <div className="flex items-center gap-2 text-xs text-gray-400">
                         <Clock className="w-3 h-3" />
                         <span>{formatTime(snipe.entryTime)}</span>
-                        <span className="text-gray-600">•</span>
+                        <span className="text-gray-600">*</span>
                         <span>{snipe.chain}</span>
                       </div>
                     </div>
