@@ -1,5 +1,5 @@
 ï»¿/**
- * Cortex Bridge â€” Guardian Screener
+ * Cortex Bridge â€â€ Guardian Screener
  * Trust Layer Ecosystem Â· Lume-OS Connectivity Module
  * Generated: 2026-04-30 Â· DarkWave Studios LLC
  *
@@ -10,26 +10,26 @@
  */
 
 const CORTEX_BRIDGE = {
-  // â”€â”€ App Identity â”€â”€
+  // ââ€€ââ€€ App Identity ââ€€ââ€€
   appId:       "guardianscreener",
   appName:     "Guardian Screener",
   domain:      "guardianscreener.tlid.io",
   category:    "Finance",
   description: "DEX token screener",
 
-  // â”€â”€ Cortex Registration â”€â”€
+  // ââ€€ââ€€ Cortex Registration ââ€€ââ€€
   cortexEndpoint: "https://lume-cortex.onrender.com",
   registryVersion: "1.0.0",
   ecosystemId: "trust-layer-42",
 
-  // â”€â”€ Heartbeat â”€â”€
+  // ââ€€ââ€€ Heartbeat ââ€€ââ€€
   heartbeat: {
     interval: 30000,
     lastPing: null,
     status: "initializing"
   },
 
-  // â”€â”€ Methods â”€â”€
+  // ââ€€ââ€€ Methods ââ€€ââ€€
   async register() {
     this.heartbeat.status = "registered";
     this.heartbeat.lastPing = new Date().toISOString();

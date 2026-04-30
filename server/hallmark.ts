@@ -186,7 +186,7 @@ export async function seedGenesisHallmark(): Promise<void> {
     const [existing] = await db.select().from(hallmarks).where(eq(hallmarks.thId, genesisThId));
 
     if (existing) {
-      console.log(`[Genesis] ${genesisThId} already exists — skipping seed.`);
+      console.log(`[Genesis] ${genesisThId} already exists �” skipping seed.`);
       return;
     }
 

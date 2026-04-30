@@ -74,7 +74,7 @@ class PredictionLearningService {
 
   async initialize(): Promise<void> {
     this.isInitialized = true;
-    console.log('✅ [PredictionLearning] ML service initialized');
+    console.log('�… [PredictionLearning] ML service initialized');
   }
 
   async extractFeatures(predictionId: string, horizon: TimeHorizon, priceChangePercent: number, isWin: boolean): Promise<void> {

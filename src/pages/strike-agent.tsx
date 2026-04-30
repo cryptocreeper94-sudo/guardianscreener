@@ -922,7 +922,7 @@ export default function StrikeAgentPage() {
                     <div className="mb-3 p-3 bg-white/5 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-lg">â—Ž</span>
+                          <span className="text-lg">ââ€”Ž</span>
                           <span className="text-white text-sm font-medium">Phantom (Solana)</span>
                         </div>
                         {solanaWallet.wallet ? (

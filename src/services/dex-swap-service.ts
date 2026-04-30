@@ -177,7 +177,7 @@ class DexSwapService {
       outputAmount: data.outAmount,
       outputAmountMin: data.otherAmountThreshold,
       priceImpact: data.priceImpactPct || '0',
-      route: data.routePlan?.map((r: any) => r.swapInfo?.label).join(' → ') || 'Jupiter',
+      route: data.routePlan?.map((r: any) => r.swapInfo?.label).join(' �’ ') || 'Jupiter',
       fee: '0.0025', // Jupiter fee
       rawQuote: data,
     };
@@ -356,7 +356,7 @@ class DexSwapService {
       outputAmount: data.dstAmount,
       outputAmountMin: this.calculateMinOutput(data.dstAmount, slippage),
       priceImpact: '0',
-      route: data.protocols?.flat()?.map((p: any) => p.name).join(' → ') || '1inch',
+      route: data.protocols?.flat()?.map((p: any) => p.name).join(' �’ ') || '1inch',
       fee: data.tx?.gas ? (parseInt(data.tx.gas) * 0.00000001).toFixed(6) : '0',
       estimatedGas: data.tx?.gas,
       rawQuote: data,

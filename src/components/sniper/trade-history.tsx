@@ -387,7 +387,7 @@ export function TradeHistory({ userId }: TradeHistoryProps) {
                                 rel="noopener noreferrer"
                                 className="text-cyan-400 hover:underline"
                               >
-                                View on Solscan →
+                                View on Solscan �’
                               </a>
                             </div>
                           )}

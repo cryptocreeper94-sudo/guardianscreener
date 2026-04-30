@@ -35,7 +35,7 @@ async function runTests() {
 
   function assertEqual(name: string, actual: any, expected: any) {
     if (JSON.stringify(actual) === JSON.stringify(expected)) {
-      console.log(`✅ [PASS] ${name}`);
+      console.log(`�… [PASS] ${name}`);
       passed++;
     } else {
       console.error(`❌ [FAIL] ${name}\n   Expected: ${JSON.stringify(expected)}\n   Actual:   ${JSON.stringify(actual)}`);
@@ -47,7 +47,7 @@ async function runTests() {
   const score = calculateGuardianScore(mockPair as any);
   console.log(`Guardian Score Output: ${score}`);
   if (score > 60 && score <= 100) {
-    console.log(`✅ [PASS] calculateGuardianScore (healthy token score > 60)`);
+    console.log(`�… [PASS] calculateGuardianScore (healthy token score > 60)`);
     passed++;
   } else {
     console.error(`❌ [FAIL] calculateGuardianScore\n   Expected > 60\n   Actual: ${score}`);
@@ -58,7 +58,7 @@ async function runTests() {
   const mlPred = generateMLPrediction(mockPair as any);
   console.log('ML Prediction:', mlPred);
   if (mlPred.direction === 'up' && mlPred.confidence > 50) {
-    console.log(`✅ [PASS] generateMLPrediction (healthy momentum = 'up')`);
+    console.log(`�… [PASS] generateMLPrediction (healthy momentum = 'up')`);
     passed++;
   } else {
     console.error(`❌ [FAIL] generateMLPrediction\n   Expected 'up' with >50 confidence\n   Actual:`, mlPred);
@@ -69,7 +69,7 @@ async function runTests() {
   const rec = deriveAIRecommendation(score, mlPred, 25, 150000, 250000);
   console.log('AI Recommendation:', rec);
   if (rec.recommendation === 'snipe' || rec.recommendation === 'watch') {
-    console.log(`✅ [PASS] deriveAIRecommendation (healthy token = snipe/watch)`);
+    console.log(`�… [PASS] deriveAIRecommendation (healthy token = snipe/watch)`);
     passed++;
   } else {
     console.error(`❌ [FAIL] deriveAIRecommendation\n   Expected 'snipe' or 'watch'\n   Actual: ${rec.recommendation}`);
@@ -89,7 +89,7 @@ async function runTests() {
     console.log('⚠️ [SKIP] transformPairToToken (mock missing properties):', err.message);
   }
 
-  console.log(`\n📊 Test Results: ${passed} Passed, ${failed} Failed`);
+  console.log(`\n�“� Test Results: ${passed} Passed, ${failed} Failed`);
 }
 
 runTests();

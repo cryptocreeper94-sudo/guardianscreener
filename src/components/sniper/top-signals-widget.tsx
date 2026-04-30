@@ -25,11 +25,11 @@ interface TopSignal {
 
 const CHAINS = [
   { id: 'all', label: 'All Chains', icon: 'ğŸŒ' },
-  { id: 'solana', label: 'Solana', icon: 'â—' },
+  { id: 'solana', label: 'Solana', icon: 'ââ€”' },
   { id: 'ethereum', label: 'Ethereum', icon: 'Î' },
-  { id: 'base', label: 'Base', icon: 'ğŸ”µ' },
+  { id: 'base', label: 'Base', icon: 'ğŸâ€µ' },
   { id: 'polygon', label: 'Polygon', icon: 'ğŸŸ£' },
-  { id: 'arbitrum', label: 'Arbitrum', icon: 'ğŸ”·' },
+  { id: 'arbitrum', label: 'Arbitrum', icon: 'ğŸâ€·' },
   { id: 'bsc', label: 'BSC', icon: 'ğŸŸ¡' },
 ];
 

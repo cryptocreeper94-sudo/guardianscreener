@@ -217,7 +217,7 @@ export function PresetSelector({ selectedPreset, onPresetChange }: PresetSelecto
                             <div className="flex gap-2 flex-wrap">
                               {preset.tradeConfig.takeProfitLevels.map((level, i) => (
                                 <Badge key={i} className="bg-green-500/10 text-green-400 border border-green-500/20 text-[10px]">
-                                  +{level.percent}% → Sell {level.sellPercent}%
+                                  +{level.percent}% �’ Sell {level.sellPercent}%
                                 </Badge>
                               ))}
                             </div>

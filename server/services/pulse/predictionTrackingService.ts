@@ -91,7 +91,7 @@ class PredictionTrackingService {
       await this.saveState();
     }
     this.isInitialized = true;
-    console.log('✅ [PredictionTracking] Service initialized with local JSON persistence');
+    console.log('�… [PredictionTracking] Service initialized with local JSON persistence');
   }
 
   private async saveState() {
@@ -172,7 +172,7 @@ class PredictionTrackingService {
       this.state.events.push(newEvent);
       await this.saveState();
 
-      console.log(`📊 [PredictionTracking] Logged prediction ${predictionId}: ${input.signal} ${input.ticker} @ $${input.priceAtPrediction}`);
+      console.log(`�“� [PredictionTracking] Logged prediction ${predictionId}: ${input.signal} ${input.ticker} @ $${input.priceAtPrediction}`);
 
       this.stampToBlockchain(predictionId, payload).catch(err => {
         console.error('⚠️ [PredictionTracking] Blockchain stamp failed:', err);
@@ -208,7 +208,7 @@ class PredictionTrackingService {
           await this.saveState();
         }
 
-        console.log(`⛓️ [PredictionTracking] Prediction ${predictionId} stamped to Solana: ${result.onchainSignature.substring(0, 20)}...`);
+        console.log(`�“️ [PredictionTracking] Prediction ${predictionId} stamped to Solana: ${result.onchainSignature.substring(0, 20)}...`);
       }
 
       this.stampToDarkWaveChain(predictionId, payload as any).catch(err => {
@@ -238,7 +238,7 @@ class PredictionTrackingService {
       });
 
       if (result.success) {
-        console.log(`🔗 [PredictionTracking] Prediction ${predictionId} verified on Trust Layer: ${result.verificationId?.substring(0, 16)}...`);
+        console.log(`�”— [PredictionTracking] Prediction ${predictionId} verified on Trust Layer: ${result.verificationId?.substring(0, 16)}...`);
       }
     } catch (error: any) {
       console.warn('⚠️ [PredictionTracking] Trust Layer not configured or unavailable:', error.message);
@@ -284,7 +284,7 @@ class PredictionTrackingService {
       
       await this.saveState();
 
-      console.log(`📈 [PredictionTracking] Outcome recorded for ${input.predictionId} @ ${input.horizon}: ${outcome} (${priceChangePercent.toFixed(2)}%)`);
+      console.log(`�“� [PredictionTracking] Outcome recorded for ${input.predictionId} @ ${input.horizon}: ${outcome} (${priceChangePercent.toFixed(2)}%)`);
 
       try {
         await predictionLearningService.extractFeatures(
