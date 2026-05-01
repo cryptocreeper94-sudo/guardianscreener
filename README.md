@@ -1,20 +1,20 @@
-ï»¿# Guardian Screener
+# Guardian Screener
 
 > $([char]0x1F512) **Patent Pending:** The core deterministic governance capabilities (Lume-V) within this repository are protected under U.S. Provisional Patent Application **No. 64/032,339** (Filed April 7, 2026).
 
-DEX token screener â€” real-time safety grading, honeypot detection, liquidity analysis across multiple chains.
+DEX token screener — real-time safety grading, honeypot detection, liquidity analysis across multiple chains.
 
 **Live:** [guardianscreener.tlid.io](https://guardianscreener.tlid.io)
 
 ## Lume-OS Integration
 
-This application is registered with **Lume Cortex** â€” the deterministic meta-operating system governing the Trust Layer ecosystem.
+This application is registered with **Lume Cortex** — the deterministic meta-operating system governing the Trust Layer ecosystem.
 
 | Property | Value |
 |---|---|
 | **Cortex Bridge** | `cortex-bridge.js` |
 | **Lume-V Wrapper** | `lume-v.wrapper.lume` |
-| **Ecosystem** | trust-layer-42 (42 apps Â· 42 papers) |
+| **Ecosystem** | trust-layer-42 (42 apps · 42 papers) |
 | **Cortex Endpoint** | lume-cortex.onrender.com |
 
 ## Stack
@@ -35,10 +35,11 @@ npm run dev
 ## Intellectual Property
 
 **Patent Pending:**
-- U.S. Pat. App. No. 64/032,339 â€” Lume-V
-- U.S. Pat. App. No. 64/047,512 â€” Lume Core
-- U.S. Pat. App. No. 64/047,467 â€” Axiom
-- U.S. Pat. App. No. 64/047,496 â€” Lume-X
-- U.S. Pat. App. No. 64/047,536 â€” Synthetic Organisms
+- U.S. Pat. App. No. 64/032,339 — Lume-V
+- U.S. Pat. App. No. 64/047,512 — Lume Core
+- U.S. Pat. App. No. 64/047,467 — Axiom
+- U.S. Pat. App. No. 64/047,496 — Lume-X
+- U.S. Pat. App. No. 64/047,536 — Synthetic Organisms
 
-Â© 2026 DarkWave Studios LLC. All rights reserved.
+© 2026 DarkWave Studios LLC. All rights reserved.
+<!-- deploy-stamp: 2026-05-01 00:57 -->
