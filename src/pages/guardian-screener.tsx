@@ -59,20 +59,20 @@ import { QuickTradePanel } from "@/components/quick-trade-panel";
 import { PriceSparkline } from "@/components/sniper/price-sparkline";
 
 const CHAINS = [
-  { id: "all", name: "All Chains", short: "All", icon: "????", color: "from-white/20 to-white/10" },
-  { id: "solana", name: "Solana", short: "SOL", icon: "?--?", color: "from-purple-500 to-green-400" },
-  { id: "ethereum", name: "Ethereum", short: "ETH", icon: "Ξ", color: "from-blue-500 to-purple-500" },
-  { id: "bsc", name: "BNB Chain", short: "BSC", icon: "????", color: "from-yellow-400 to-yellow-600" },
-  { id: "arbitrum", name: "Arbitrum", short: "ARB", icon: "??"?", color: "from-blue-400 to-cyan-500" },
-  { id: "polygon", name: "Polygon", short: "MATIC", icon: "????", color: "from-purple-500 to-purple-700" },
-  { id: "base", name: "Base", short: "BASE", icon: "??"?", color: "from-blue-400 to-blue-600" },
-  { id: "avalanche", name: "Avalanche", short: "AVAX", icon: "??"?", color: "from-red-500 to-red-700" },
-  { id: "fantom", name: "Fantom", short: "FTM", icon: "??'?", color: "from-blue-600 to-blue-800" },
-  { id: "optimism", name: "Optimism", short: "OP", icon: "??"?", color: "from-red-500 to-red-600" },
-  { id: "cronos", name: "Cronos", short: "CRO", icon: "??'?", color: "from-cyan-600 to-blue-800" },
-  { id: "tron", name: "Tron", short: "TRX", icon: "??'?", color: "from-red-600 to-red-800" },
-  { id: "zksync", name: "zkSync", short: "ZK", icon: "⚡", color: "from-indigo-500 to-blue-600" },
-  { id: "darkwave", name: "DarkWave", short: "DW", icon: "?--?", color: "from-cyan-400 to-purple-500" },
+  { id: "all", name: "All Chains", short: "All", icon: "ALL", color: "from-white/20 to-white/10" },
+  { id: "solana", name: "Solana", short: "SOL", icon: "SOL", color: "from-purple-500 to-green-400" },
+  { id: "ethereum", name: "Ethereum", short: "ETH", icon: "ETH", color: "from-blue-500 to-purple-500" },
+  { id: "bsc", name: "BNB Chain", short: "BSC", icon: "BNB", color: "from-yellow-400 to-yellow-600" },
+  { id: "arbitrum", name: "Arbitrum", short: "ARB", icon: "ARB", color: "from-blue-400 to-cyan-500" },
+  { id: "polygon", name: "Polygon", short: "MATIC", icon: "MATIC", color: "from-purple-500 to-purple-700" },
+  { id: "base", name: "Base", short: "BASE", icon: "BASE", color: "from-blue-400 to-blue-600" },
+  { id: "avalanche", name: "Avalanche", short: "AVAX", icon: "AVAX", color: "from-red-500 to-red-700" },
+  { id: "fantom", name: "Fantom", short: "FTM", icon: "FTM", color: "from-blue-600 to-blue-800" },
+  { id: "optimism", name: "Optimism", short: "OP", icon: "OP", color: "from-red-500 to-red-600" },
+  { id: "cronos", name: "Cronos", short: "CRO", icon: "CRO", color: "from-cyan-600 to-blue-800" },
+  { id: "tron", name: "Tron", short: "TRX", icon: "TRX", color: "from-red-600 to-red-800" },
+  { id: "zksync", name: "zkSync", short: "ZK", icon: "ZK", color: "from-indigo-500 to-blue-600" },
+  { id: "darkwave", name: "DarkWave", short: "DW", icon: "DW", color: "from-cyan-400 to-purple-500" },
 ];
 
 const TIME_FILTERS = [
@@ -100,15 +100,15 @@ const SORT_OPTIONS = [
 
 // Category filters for different token types
 const CATEGORY_FILTERS = [
-  { id: "all", label: "All", icon: "????", color: "bg-white/10" },
-  { id: "meme", label: "Meme", icon: "????", color: "bg-green-500/20" },
-  { id: "defi", label: "DeFi", icon: "????", color: "bg-blue-500/20" },
-  { id: "bluechip", label: "Blue Chip", icon: "??'?", color: "bg-purple-500/20" },
-  { id: "gaming", label: "Gaming", icon: "????", color: "bg-pink-500/20" },
-  { id: "ai", label: "AI", icon: "???-", color: "bg-cyan-500/20" },
-  { id: "nft", label: "NFT", icon: "??-????", color: "bg-orange-500/20" },
-  { id: "stable", label: "Stable", icon: "??'?", color: "bg-emerald-500/20" },
-  { id: "rwa", label: "RWA", icon: "????", color: "bg-amber-500/20" },
+  { id: "all", label: "All", icon: "*", color: "bg-white/10" },
+  { id: "meme", label: "Meme", icon: "M", color: "bg-green-500/20" },
+  { id: "defi", label: "DeFi", icon: "$", color: "bg-blue-500/20" },
+  { id: "bluechip", label: "Blue Chip", icon: "B", color: "bg-purple-500/20" },
+  { id: "gaming", label: "Gaming", icon: "G", color: "bg-pink-500/20" },
+  { id: "ai", label: "AI", icon: "AI", color: "bg-cyan-500/20" },
+  { id: "nft", label: "NFT", icon: "N", color: "bg-orange-500/20" },
+  { id: "stable", label: "Stable", icon: "S", color: "bg-emerald-500/20" },
+  { id: "rwa", label: "RWA", icon: "R", color: "bg-amber-500/20" },
 ];
 
 interface SafetyData {
