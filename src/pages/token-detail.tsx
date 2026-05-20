@@ -388,7 +388,7 @@ export default function TokenDetail() {
             {/* Pair Analytics */}
             <div className="bg-slate-900/50 border border-white/10 rounded-xl p-4">
               <h3 className="text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Users className="w-4 h-4 text-purple-400" /> Pair Analytics
+                <Users className="w-4 h-4 text-sky-400" /> Pair Analytics
               </h3>
               <div className="grid grid-cols-2 gap-3 mb-4">
                 <div className="bg-white/5 rounded-lg p-2 text-center">

@@ -179,7 +179,7 @@ export function ManualWatchlist({ userId, selectedPreset, walletAddress }: Manua
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/30 to-purple-500/30 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/30 to-sky-500/30 flex items-center justify-center">
                       <span className="text-sm font-bold text-white">
                         {slot.order.tokenSymbol?.slice(0, 2) || '??'}
                       </span>
@@ -350,7 +350,7 @@ export function ManualWatchlist({ userId, selectedPreset, walletAddress }: Manua
                 <Button
                   onClick={() => handleSubmit(slot.index)}
                   disabled={!formData.tokenAddress || createOrder.isPending}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 text-white"
+                  className="w-full bg-gradient-to-r from-cyan-500 to-sky-500 text-white"
                   data-testid={`submit-order-${slot.index}`}
                 >
                   {createOrder.isPending ? (

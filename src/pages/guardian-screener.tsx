@@ -60,11 +60,11 @@ import { PriceSparkline } from "@/components/sniper/price-sparkline";
 
 const CHAINS = [
   { id: "all", name: "All Chains", short: "All", icon: "ALL", color: "from-white/20 to-white/10" },
-  { id: "solana", name: "Solana", short: "SOL", icon: "SOL", color: "from-purple-500 to-green-400" },
-  { id: "ethereum", name: "Ethereum", short: "ETH", icon: "ETH", color: "from-blue-500 to-purple-500" },
+  { id: "solana", name: "Solana", short: "SOL", icon: "SOL", color: "from-sky-500 to-green-400" },
+  { id: "ethereum", name: "Ethereum", short: "ETH", icon: "ETH", color: "from-blue-500 to-sky-500" },
   { id: "bsc", name: "BNB Chain", short: "BSC", icon: "BNB", color: "from-yellow-400 to-yellow-600" },
   { id: "arbitrum", name: "Arbitrum", short: "ARB", icon: "ARB", color: "from-blue-400 to-cyan-500" },
-  { id: "polygon", name: "Polygon", short: "MATIC", icon: "MATIC", color: "from-purple-500 to-purple-700" },
+  { id: "polygon", name: "Polygon", short: "MATIC", icon: "MATIC", color: "from-sky-500 to-sky-700" },
   { id: "base", name: "Base", short: "BASE", icon: "BASE", color: "from-blue-400 to-blue-600" },
   { id: "avalanche", name: "Avalanche", short: "AVAX", icon: "AVAX", color: "from-red-500 to-red-700" },
   { id: "fantom", name: "Fantom", short: "FTM", icon: "FTM", color: "from-blue-600 to-blue-800" },
@@ -72,7 +72,7 @@ const CHAINS = [
   { id: "cronos", name: "Cronos", short: "CRO", icon: "CRO", color: "from-cyan-600 to-blue-800" },
   { id: "tron", name: "Tron", short: "TRX", icon: "TRX", color: "from-red-600 to-red-800" },
   { id: "zksync", name: "zkSync", short: "ZK", icon: "ZK", color: "from-indigo-500 to-blue-600" },
-  { id: "darkwave", name: "DarkWave", short: "DW", icon: "DW", color: "from-cyan-400 to-purple-500" },
+  { id: "darkwave", name: "DarkWave", short: "DW", icon: "DW", color: "from-cyan-400 to-sky-500" },
 ];
 
 const TIME_FILTERS = [
@@ -103,7 +103,7 @@ const CATEGORY_FILTERS = [
   { id: "all", label: "All", icon: "*", color: "bg-white/10" },
   { id: "meme", label: "Meme", icon: "M", color: "bg-green-500/20" },
   { id: "defi", label: "DeFi", icon: "$", color: "bg-blue-500/20" },
-  { id: "bluechip", label: "Blue Chip", icon: "B", color: "bg-purple-500/20" },
+  { id: "bluechip", label: "Blue Chip", icon: "B", color: "bg-sky-500/20" },
   { id: "gaming", label: "Gaming", icon: "G", color: "bg-pink-500/20" },
   { id: "ai", label: "AI", icon: "AI", color: "bg-cyan-500/20" },
   { id: "nft", label: "NFT", icon: "N", color: "bg-orange-500/20" },
@@ -248,14 +248,14 @@ function MLPredictionBadge({ prediction }: { prediction: MLPrediction }) {
       <Tooltip>
         <TooltipTrigger>
           <div className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded ${directionConfig.bg}`}>
-            <Brain className="w-3 h-3 text-purple-400" />
+            <Brain className="w-3 h-3 text-sky-400" />
             <Icon className={`w-3 h-3 ${directionConfig.color}`} />
             <span className={`text-[10px] font-medium ${directionConfig.color}`}>{prediction.confidence}%</span>
           </div>
         </TooltipTrigger>
         <TooltipContent className="bg-slate-900 border-white/10">
           <div className="text-xs space-y-1">
-            <div className="font-medium text-purple-400 flex items-center gap-1">
+            <div className="font-medium text-sky-400 flex items-center gap-1">
               <Brain className="w-3 h-3" /> ML Prediction
             </div>
             <div className="text-white/60">Direction: <span className={directionConfig.color}>{prediction.direction.toUpperCase()}</span></div>
@@ -400,7 +400,7 @@ function ExpandedTokenDetails({ token }: { token: Token }) {
           {/* Holder Analysis */}
           <div className="bg-slate-800/50 rounded-lg p-3 border border-white/5">
             <div className="flex items-center gap-2 mb-3">
-              <Users className="w-4 h-4 text-purple-400" />
+              <Users className="w-4 h-4 text-sky-400" />
               <span className="text-xs font-semibold text-white">Holder Analysis</span>
             </div>
             <div className="space-y-2 text-xs">
@@ -424,7 +424,7 @@ function ExpandedTokenDetails({ token }: { token: Token }) {
                 <div className="text-white/40 text-[10px] mb-1">Whale Distribution</div>
                 <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-purple-500 to-pink-500" 
+                    className="h-full bg-gradient-to-r from-sky-500 to-pink-500" 
                     style={{ width: `${Math.min(token.safety.whaleConcentration, 100)}%` }}
                   />
                 </div>
@@ -452,7 +452,7 @@ function ExpandedTokenDetails({ token }: { token: Token }) {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-white/50">Model Accuracy</span>
-                <span className="text-purple-400">{token.mlPrediction.accuracy}%</span>
+                <span className="text-sky-400">{token.mlPrediction.accuracy}%</span>
               </div>
               <div className="border-t border-white/10 pt-2 mt-2 space-y-1">
                 <div className="flex items-center justify-between">
@@ -715,7 +715,7 @@ function LeftSidebar({
       {/* Logo */}
       <div className="p-3 border-b border-white/5">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-sky-500 flex items-center justify-center">
             <Shield className="w-4 h-4 text-white" />
           </div>
           <div className="flex flex-col ml-3">
@@ -801,10 +801,10 @@ function LeftSidebar({
         </Link>
         <div className="h-px bg-white/5 my-2" />
         <Link href="/pulse">
-          <div className="flex items-center gap-2 px-3 py-2 text-purple-400 hover:bg-purple-500/10 cursor-pointer">
+          <div className="flex items-center gap-2 px-3 py-2 text-sky-400 hover:bg-sky-500/10 cursor-pointer">
             <Brain className="w-4 h-4" />
             <span className="text-xs font-medium">Pulse AI</span>
-            <span className="ml-auto text-[9px] bg-purple-500/20 px-1.5 rounded text-purple-400">ML</span>
+            <span className="ml-auto text-[9px] bg-sky-500/20 px-1.5 rounded text-sky-400">ML</span>
           </div>
         </Link>
         <Link href="/guardian-shield">
@@ -1158,7 +1158,7 @@ export default function GuardianScreener() {
               initial={{ width: 0 }}
               animate={{ width: 160 }}
               transition={{ duration: 1.5, ease: 'easeInOut' }}
-              className="h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 rounded-full"
+              className="h-0.5 bg-gradient-to-r from-cyan-500 via-sky-500 to-cyan-500 rounded-full"
             />
           </motion.div>
         </motion.div>
@@ -1211,7 +1211,7 @@ export default function GuardianScreener() {
         {/* Mobile Header */}
         <div className="lg:hidden bg-[#0d0d0d] border-b border-white/5 px-3 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-sky-500 flex items-center justify-center">
               <Shield className="w-4 h-4 text-white" />
             </div>
             <span className="font-bold text-white text-sm">GUARDIAN</span>
@@ -1323,7 +1323,7 @@ export default function GuardianScreener() {
           <button 
             onClick={() => { setActiveFilter("new"); setRankBy("newest"); }}
             className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium ${
-              activeFilter === "new" ? 'bg-purple-500/20 text-purple-400' : 'text-white/50 hover:text-white hover:bg-white/5'
+              activeFilter === "new" ? 'bg-sky-500/20 text-sky-400' : 'text-white/50 hover:text-white hover:bg-white/5'
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
@@ -1442,7 +1442,7 @@ export default function GuardianScreener() {
             <button
               onClick={handleContractSearch}
               disabled={isSearchingContract || !contractSearch.trim()}
-              className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 min-h-[44px]"
+              className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 min-h-[44px]"
               data-testid="contract-search-btn"
             >
               {isSearchingContract ? (
@@ -1616,8 +1616,8 @@ export default function GuardianScreener() {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="flex items-center gap-3 px-4 py-2.5 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-b border-white/5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+            <div className="flex items-center gap-3 px-4 py-2.5 bg-gradient-to-r from-cyan-500/10 to-sky-500/10 border-b border-white/5">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-sky-500 flex items-center justify-center flex-shrink-0">
                 <Shield className="w-4 h-4 text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -1696,7 +1696,7 @@ export default function GuardianScreener() {
         </button>
         <button
           onClick={() => { setActiveFilter("new"); setRankBy("newest"); }}
-          className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg min-w-[56px] ${activeFilter === 'new' ? 'text-purple-400' : 'text-white/40'}`}
+          className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg min-w-[56px] ${activeFilter === 'new' ? 'text-sky-400' : 'text-white/40'}`}
           data-testid="mobile-nav-new"
         >
           <Sparkles className="w-5 h-5" />

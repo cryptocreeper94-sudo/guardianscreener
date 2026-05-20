@@ -28,10 +28,10 @@ interface QuickTradePanelProps {
 type Chain = 'solana' | 'ethereum' | 'base' | 'polygon' | 'bsc' | 'arbitrum' | 'optimism' | 'avalanche';
 
 const CHAINS: { id: Chain; name: string; icon: string; color: string; native: string }[] = [
-  { id: 'solana', name: 'Solana', icon: '?--?', color: 'from-purple-500 to-cyan-500', native: 'SOL' },
-  { id: 'ethereum', name: 'Ethereum', icon: 'Ξ', color: 'from-blue-500 to-purple-500', native: 'ETH' },
+  { id: 'solana', name: 'Solana', icon: '?--?', color: 'from-sky-500 to-cyan-500', native: 'SOL' },
+  { id: 'ethereum', name: 'Ethereum', icon: 'Ξ', color: 'from-blue-500 to-sky-500', native: 'ETH' },
   { id: 'base', name: 'Base', icon: '??"?', color: 'from-blue-400 to-blue-600', native: 'ETH' },
-  { id: 'polygon', name: 'Polygon', icon: '⬡', color: 'from-purple-400 to-purple-600', native: 'MATIC' },
+  { id: 'polygon', name: 'Polygon', icon: '⬡', color: 'from-sky-400 to-sky-600', native: 'MATIC' },
   { id: 'bsc', name: 'BNB Chain', icon: '??"?', color: 'from-yellow-400 to-yellow-600', native: 'BNB' },
   { id: 'arbitrum', name: 'Arbitrum', icon: '??"?', color: 'from-blue-500 to-cyan-500', native: 'ETH' },
   { id: 'optimism', name: 'Optimism', icon: '??"?', color: 'from-red-400 to-red-600', native: 'ETH' },
@@ -40,16 +40,16 @@ const CHAINS: { id: Chain; name: string; icon: string; color: string; native: st
 
 const SOLANA_DEXES = [
   { name: 'Jupiter', url: (token: string) => `https://jup.ag/swap/SOL-${token}`, color: 'bg-gradient-to-r from-emerald-500 to-cyan-500', primary: true },
-  { name: 'Raydium', url: (token: string) => `https://raydium.io/swap/?inputMint=sol&outputMint=${token}`, color: 'bg-purple-500/80' },
+  { name: 'Raydium', url: (token: string) => `https://raydium.io/swap/?inputMint=sol&outputMint=${token}`, color: 'bg-sky-500/80' },
   { name: 'Meteora', url: (token: string) => `https://app.meteora.ag/swap/SOL-${token}`, color: 'bg-cyan-500/80' },
   { name: 'Orca', url: (token: string) => `https://www.orca.so/swap?inputMint=sol&outputMint=${token}`, color: 'bg-blue-500/80' },
 ];
 
 const EVM_DEXES: Record<string, { name: string; url: (token: string) => string; color: string }[]> = {
   ethereum: [
-    { name: '1inch', url: (token: string) => `https://app.1inch.io/#/1/simple/swap/ETH/${token}`, color: 'bg-gradient-to-r from-blue-500 to-purple-500' },
+    { name: '1inch', url: (token: string) => `https://app.1inch.io/#/1/simple/swap/ETH/${token}`, color: 'bg-gradient-to-r from-blue-500 to-sky-500' },
     { name: 'Uniswap', url: (token: string) => `https://app.uniswap.org/swap?outputCurrency=${token}`, color: 'bg-pink-500/80' },
-    { name: 'SushiSwap', url: (token: string) => `https://www.sushi.com/swap?chainId=1&token1=${token}`, color: 'bg-purple-500/80' },
+    { name: 'SushiSwap', url: (token: string) => `https://www.sushi.com/swap?chainId=1&token1=${token}`, color: 'bg-sky-500/80' },
   ],
   base: [
     { name: '1inch', url: (token: string) => `https://app.1inch.io/#/8453/simple/swap/ETH/${token}`, color: 'bg-gradient-to-r from-blue-400 to-blue-600' },
@@ -57,7 +57,7 @@ const EVM_DEXES: Record<string, { name: string; url: (token: string) => string; 
     { name: 'Uniswap', url: (token: string) => `https://app.uniswap.org/swap?chain=base&outputCurrency=${token}`, color: 'bg-pink-500/80' },
   ],
   polygon: [
-    { name: '1inch', url: (token: string) => `https://app.1inch.io/#/137/simple/swap/MATIC/${token}`, color: 'bg-gradient-to-r from-purple-400 to-purple-600' },
+    { name: '1inch', url: (token: string) => `https://app.1inch.io/#/137/simple/swap/MATIC/${token}`, color: 'bg-gradient-to-r from-sky-400 to-sky-600' },
     { name: 'QuickSwap', url: (token: string) => `https://quickswap.exchange/#/swap?outputCurrency=${token}`, color: 'bg-blue-500/80' },
   ],
   bsc: [

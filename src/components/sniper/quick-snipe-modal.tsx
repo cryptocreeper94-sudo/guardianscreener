@@ -144,7 +144,7 @@ export function QuickSnipeModal({
           <GlassCard glow className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center">
                   <Target className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -204,7 +204,7 @@ export function QuickSnipeModal({
                 </div>
               </div>
 
-              <div className="p-3 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 rounded-lg">
+              <div className="p-3 bg-gradient-to-r from-cyan-500/10 to-sky-500/10 border border-cyan-500/20 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <DollarSign className="w-4 h-4 text-cyan-400" />
                   <span className="text-xs font-semibold text-white">Position Calculator</span>
@@ -330,7 +330,7 @@ export function QuickSnipeModal({
                 className={`flex-1 ${
                   isConfirming && countdown > 0 
                     ? 'bg-yellow-500 hover:bg-yellow-600' 
-                    : 'bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700'
+                    : 'bg-gradient-to-r from-cyan-500 to-sky-600 hover:from-cyan-600 hover:to-sky-700'
                 }`}
                 onClick={handleConfirmClick}
                 data-testid="confirm-snipe-btn"

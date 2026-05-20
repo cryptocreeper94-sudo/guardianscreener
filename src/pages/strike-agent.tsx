@@ -237,7 +237,7 @@ function SettingsModal({ open, onClose, settings, onSave }: {
           
           <div className="border-t border-white/10 pt-6">
             <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-              <Sliders className="w-4 h-4 text-purple-400" />
+              <Sliders className="w-4 h-4 text-sky-400" />
               Trading Parameters
             </h3>
             <div className="space-y-4">
@@ -250,7 +250,7 @@ function SettingsModal({ open, onClose, settings, onSave }: {
                   step="0.1"
                   value={local.slippage}
                   onChange={e => setLocal({ ...local, slippage: parseFloat(e.target.value) })}
-                  className="w-full accent-purple-500"
+                  className="w-full accent-sky-500"
                 />
                 <div className="flex justify-between text-[10px] text-white/30 mt-1">
                   <span>0.1%</span>
@@ -267,7 +267,7 @@ function SettingsModal({ open, onClose, settings, onSave }: {
                       onClick={() => setLocal({ ...local, priorityFee: fee })}
                       className={`py-2 rounded-xl text-xs font-medium transition-colors ${
                         local.priorityFee === fee 
-                          ? 'bg-purple-500/30 text-purple-400 border border-purple-500/40' 
+                          ? 'bg-sky-500/30 text-sky-400 border border-sky-500/40' 
                           : 'bg-white/5 text-white/60 border border-white/10'
                       }`}
                     >
@@ -523,7 +523,7 @@ function TokenCard({ rec, expanded, onToggle, isFavorite, onToggleFavorite }: {
             </span>
           )}
           {rec.isPumpFun && (
-            <span className="text-[10px] px-2 py-1 bg-purple-500/15 text-purple-400 rounded-lg border border-purple-500/30 flex items-center gap-1">
+            <span className="text-[10px] px-2 py-1 bg-sky-500/15 text-sky-400 rounded-lg border border-sky-500/30 flex items-center gap-1">
               <Flame className="w-3 h-3" />
               Pump.fun
             </span>
@@ -687,7 +687,7 @@ function TokenCard({ rec, expanded, onToggle, isFavorite, onToggleFavorite }: {
               <div className="grid grid-cols-2 gap-2">
                 <Link href={`/coin/${rec.tokenAddress}`}>
                   <a
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-purple-500/20 to-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:border-cyan-500/50 transition-all"
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-sky-500/20 to-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:border-cyan-500/50 transition-all"
                     onClick={(e) => e.stopPropagation()}
                     data-testid="button-analyze"
                   >
@@ -877,7 +877,7 @@ export default function StrikeAgentPage() {
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-purple-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-sky-500 flex items-center justify-center">
                 <Bot className="w-5 h-5 text-white" />
               </div>
               <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full animate-pulse border-2 border-slate-950" />
@@ -898,7 +898,7 @@ export default function StrikeAgentPage() {
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all ${
                   hasAnyWallet 
                     ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-400' 
-                    : 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
+                    : 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white'
                 }`}
                 data-testid="button-wallet-menu"
               >
@@ -945,7 +945,7 @@ export default function StrikeAgentPage() {
                       ) : (
                         <button
                           onClick={() => solanaWallet.connectPhantom().catch(() => {})}
-                          className="w-full py-2 bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-bold rounded-lg"
+                          className="w-full py-2 bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-bold rounded-lg"
                           data-testid="button-connect-phantom"
                         >
                           Connect Phantom
@@ -1029,7 +1029,7 @@ export default function StrikeAgentPage() {
                   ? f === 'snipe' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
                   : f === 'watch' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
                   : f === 'avoid' ? 'bg-red-500/20 text-red-400 border border-red-500/40'
-                  : f === 'favorites' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/40'
+                  : f === 'favorites' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/40'
                   : 'bg-white/20 text-white border border-white/40'
                   : 'bg-white/5 text-white/60 border border-transparent'
               }`}
@@ -1306,10 +1306,10 @@ export default function StrikeAgentPage() {
           </div>
           <Link href="/pulse">
             <a className="flex flex-col items-center gap-1" data-testid="link-pulse">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                <Zap className="w-5 h-5 text-purple-400" />
+              <div className="w-10 h-10 rounded-xl bg-sky-500/20 flex items-center justify-center">
+                <Zap className="w-5 h-5 text-sky-400" />
               </div>
-              <span className="text-[10px] text-purple-400 font-medium">Pulse AI</span>
+              <span className="text-[10px] text-sky-400 font-medium">Pulse AI</span>
             </a>
           </Link>
         </div>

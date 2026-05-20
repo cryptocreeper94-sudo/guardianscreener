@@ -59,7 +59,7 @@ export function SubscriptionGate({
         className="fixed inset-0 flex items-center justify-center z-50 px-4"
       >
         <div className="bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 flex items-center justify-center mx-auto mb-5">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-cyan-500/30 flex items-center justify-center mx-auto mb-5">
             <Lock className="w-8 h-8 text-cyan-400" />
           </div>
 
@@ -71,14 +71,14 @@ export function SubscriptionGate({
 
           {user ? (
             <Link href={checkoutPath}>
-              <Button className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold" data-testid="button-subscribe">
+              <Button className="w-full bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white font-semibold" data-testid="button-subscribe">
                 Subscribe Now
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
           ) : (
             <Link href="/login">
-              <Button className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold" data-testid="button-sign-in-subscribe">
+              <Button className="w-full bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white font-semibold" data-testid="button-sign-in-subscribe">
                 Sign In to Subscribe
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>

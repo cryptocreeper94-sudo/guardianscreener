@@ -35,7 +35,7 @@ const CHAINS = [
 
 const CATEGORY_STYLES: Record<string, { bg: string; text: string; label: string }> = {
   blue_chip: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Blue Chip' },
-  defi: { bg: 'bg-purple-500/20', text: 'text-purple-400', label: 'DeFi' },
+  defi: { bg: 'bg-sky-500/20', text: 'text-sky-400', label: 'DeFi' },
   meme: { bg: 'bg-amber-500/20', text: 'text-amber-400', label: 'Meme' },
   dex: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', label: 'DEX' },
   new: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: 'New' },
@@ -220,7 +220,7 @@ export function TopSignalsWidget({ onSelectToken, onSnipeToken }: TopSignalsWidg
                           price: signal.currentPrice,
                         });
                       }}
-                      className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-medium hover:from-cyan-500/30 hover:to-purple-500/30 transition-all"
+                      className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500/20 to-sky-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-medium hover:from-cyan-500/30 hover:to-sky-500/30 transition-all"
                       data-testid={`snipe-signal-${signal.rank}`}
                     >
                       Snipe

@@ -308,7 +308,7 @@ export function TradeHistory({ userId }: TradeHistoryProps) {
                               <span className="font-bold text-white text-sm">{trade.tokenSymbol}</span>
                               <Badge variant="outline" className="text-[10px]">{trade.chain}</Badge>
                               {trade.preset && (
-                                <Badge className="bg-purple-500/20 text-purple-400 text-[10px] capitalize">
+                                <Badge className="bg-sky-500/20 text-sky-400 text-[10px] capitalize">
                                   {trade.preset}
                                 </Badge>
                               )}
